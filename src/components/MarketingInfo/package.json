@@ -1,0 +1,9 @@
+{
+  "name": "MarketingInfo",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./MarketingInfo.js",
+  "dependencies": {
+    "react": "latest"
+  }
+}

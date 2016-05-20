@@ -1,0 +1,40 @@
+/**
+ * Created by cuita on 2016/5/1.
+ */
+
+import React from 'react';
+import PaymentStore from '../../stores/PaymentStore.js';
+import Money from '../Money';
+import Const from '../../constants/PaymentConstants.js';
+var EventType = Const.EventType;
+
+var MarketingInfo = React.createClass({
+  getInitialState: function() {
+    return PaymentStore.getPaymentInfo().marketing || {};
+  },
+  componentDidMount: function () {
+    PaymentStore.addChangeListener(EventType.MARKETING, this._onChange);
+  },
+  componentWillUnmount: function () {
+    PaymentStore.removeChangeListener(EventType.MARKETING, this._onChange);
+  },
+  _onChange: function () {
+    this.setState({marketing: PaymentStore.getPaymentInfo().marketing});
+  },
+  render: function () {
+    if (this.state.marketing) {
+      return (
+        <div>
+          <h2>优惠信息</h2>
+          <label>优惠金额:</label><Money>{this.state.marketing.amt}</Money>
+          <br />
+          <label>优惠信息:</label><span>{this.state.marketing.msg}</span>
+        </div>
+      );
+    } else {
+      return (<div>正在加载优惠信息....</div>);
+    }
+  }
+});
+
+export default MarketingInfo;
