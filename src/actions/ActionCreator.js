@@ -3,76 +3,24 @@
  */
 import Const from '../constants/PaymentConstants.js';
 import PaymentDispatcher from '../dispatcher/PaymentDispatcher.js';
-import Payment from '../Payment';
-var EventType = Const.EventType;
+var ClientCmd = Const.ClientCmd;
 
-class ActionCreator extends Payment {
-  setUserProfile(userProfile) {
-    this.userProfile = userProfile;
-  }
-
-  errorHandle(err) {
-    console.log(err);
-  }
-
-  msgHandle(msg) {
+class ActionCreator {
+  static serverAction(msg) {
     PaymentDispatcher.dispatch(msg);
   }
 
-  clientSignIn() {
-    this.send({
-      eventType: EventType.CLIENT_SIGN_IN,
-      ...this.userProfile
-    })
+  static selectOrder(orderId) {
+    PaymentDispatcher.dispatch({eventType: ClientCmd.SELECT_ORDER, orderId: orderId});
   }
 
-  createOrder(orderInfo) {
-    this.send({
-      eventType: EventType.CREATE_ORDER,
-      ...orderInfo
-    });
+  static paying() {
+    PaymentDispatcher.dispatch({eventType: ClientCmd.PAYING});
   }
 
-  joinOrder(orderId) {
-    this.send({
-      eventType: EventType.JOIN_ORDER,
-      orderId: orderId
-    })
-  }
-
-  reqPayAuth(orderId) {
-    this.send({
-      eventType: EventType.PAY_AUTH_REQ,
-      orderId: orderId
-    });
-  }
-
-  giveUpPay(orderId) {
-    this.send({
-      eventType: EventType.GIVE_UP_PAY,
-      orderId: orderId
-    });
-  }
-
-  cancelOrder(orderId) {
-    this.send({
-      eventType: EventType.CANCEL_ORDER,
-      orderId: orderId
-    })
-  }
-
-  payResult(result) {
-    this.send({
-      eventType: EventType.PAY_RESULT,
-      ...result
-    })
-  }
-
-  send(msg) {
-    this.open();
-    super.send({...msg, ...this.userProfile});
-    PaymentDispatcher.dispatch(msg);
+  static removeOrder(orderId) {
+    PaymentDispatcher.dispatch({eventType: ClientCmd.REMOVE_COMPLETED_ORDER});
   }
 }
 
-export default new ActionCreator();
+export default ActionCreator;

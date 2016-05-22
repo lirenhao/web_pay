@@ -3,10 +3,10 @@
  */
 import React from 'react';
 import PaymentStore from '../../stores/PaymentStore.js';
-import ActionCreator from '../../actions/ActionCreator.js';
+import Payment from '../../Payment';
 import Const from '../../constants/PaymentConstants.js';
 var LocalStatus = Const.LocalStatus;
-var EventType = Const.EventType;
+var OrderEventType = Const.OrderEventType;
 
 var PayButton = React.createClass({
   getInitialState: function() {
@@ -15,18 +15,19 @@ var PayButton = React.createClass({
     };
   },
   componentDidMount: function () {
-    PaymentStore.addChangeListener(EventType.STATUS_CHANGE, this._onChange);
+    PaymentStore.addChangeListener(OrderEventType.STATUS_CHANGED, this._onChange);
   },
   componentWillUnmount: function () {
-    PaymentStore.removeChangeListener(EventType.STATUS_CHANGE, this._onChange);
+    PaymentStore.removeChangeListener(OrderEventType.STATUS_CHANGED, this._onChange);
   },
   _onChange: function () {
+    console.log(JSON.stringify(PaymentStore.getPayStatus()));
     this.setState({
       payStatus: PaymentStore.getPayStatus()
     });
   },
   clickHandle: function () {
-    ActionCreator.reqPayAuth(PaymentStore.getPaymentInfo().orderInfo.orderId);
+    Payment.reqPayAuth(PaymentStore.getPaymentInfo().orderInfo.orderId);
   },
   render: function () {
     switch (this.state.payStatus) {

@@ -6,17 +6,17 @@ import React from 'react';
 import PaymentStore from '../../stores/PaymentStore.js';
 import Money from '../Money';
 import Const from '../../constants/PaymentConstants.js';
-var EventType = Const.EventType;
+var OrderEventType = Const.OrderEventType;
 
 var MarketingInfo = React.createClass({
   getInitialState: function() {
     return PaymentStore.getPaymentInfo().marketing || {};
   },
   componentDidMount: function () {
-    PaymentStore.addChangeListener(EventType.MARKETING, this._onChange);
+    PaymentStore.addChangeListener(OrderEventType.MARKETING_CHANGED, this._onChange);
   },
   componentWillUnmount: function () {
-    PaymentStore.removeChangeListener(EventType.MARKETING, this._onChange);
+    PaymentStore.removeChangeListener(OrderEventType.MARKETING_CHANGED, this._onChange);
   },
   _onChange: function () {
     this.setState({marketing: PaymentStore.getPaymentInfo().marketing});

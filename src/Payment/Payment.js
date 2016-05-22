@@ -1,7 +1,8 @@
 /**
  * Created by cuita on 2016/5/1.
  */
-import Promise from 'bluebird';
+import Const from '../constants/PaymentConstants';
+var ServerCmd = Const.ServerCmd;
 
 class Payment {
 
@@ -11,13 +12,22 @@ class Payment {
     this._tmpMessages = [];
   }
 
-  msgHandle(msg) {
+  setUserProfile(userProfile) {
+    this.userProfile = userProfile;
   }
 
-  errorHandle(err) {
+  setMsgHandler(handler) {
+    this.msgHandler = handler;
   }
 
-  openedHandle() {
+  handleMsg(msg) {
+    this.msgHandler(msg);
+  }
+
+  handleErr(err) {
+  }
+
+  handleOpened() {
   }
 
   open() {
@@ -27,7 +37,7 @@ class Payment {
       this.webSocket.onopen = (event) => {
         this._isClosed = false;
         this._waitOpen = false;
-        this.openedHandle();
+        this.handleOpened();
         this._tmpMessages.forEach(msg => Payment.prototype.send.call(this, msg));
         this._tmpMessages = [];
       };
@@ -36,10 +46,10 @@ class Payment {
       };
 
       this.webSocket.onmessage = (event) => {
-        this.msgHandle(JSON.parse(event.data));
+        this.handleMsg(JSON.parse(event.data));
       };
 
-      this.webSocket.onerror = this.errorHandle;
+      this.webSocket.onerror = this.handleErr;
     }
   }
 
@@ -52,12 +62,64 @@ class Payment {
   }
 
   send(msg) {
+    var _msg = {...msg, ...this.userProfile};
+    this.open();
     if (this._isClosed) {
-      this._tmpMessages.push(msg);
+      this._tmpMessages.push(_msg);
     } else {
-      this.webSocket.send(JSON.stringify(msg));
+      this.webSocket.send(JSON.stringify(_msg));
     }
+  }
+
+  clientSignIn() {
+    this.send({
+      eventType: ServerCmd.CLIENT_SIGN_IN,
+      ...this.userProfile
+    })
+  }
+
+  createOrder(orderInfo) {
+    this.send({
+      eventType: ServerCmd.CREATE_ORDER,
+      ...orderInfo
+    });
+  }
+
+  joinOrder(orderId) {
+    this.send({
+      eventType: ServerCmd.JOIN_ORDER,
+      orderId: orderId
+    })
+  }
+
+  reqPayAuth(orderId) {
+    this.send({
+      eventType: ServerCmd.PAY_AUTH_REQ,
+      orderId: orderId
+    });
+  }
+
+  giveUpPay(orderId) {
+    this.send({
+      eventType: ServerCmd.GIVE_UP_PAY,
+      orderId: orderId
+    });
+  }
+
+  cancelOrder(orderId) {
+    this.send({
+      eventType: ServerCmd.CANCEL_ORDER,
+      orderId: orderId
+    })
+  }
+
+  payResult(result) {
+    this.send({
+      eventType: ServerCmd.PAY_RESULT,
+      ...result
+    })
   }
 }
 
-export default Payment;
+export {Payment};
+export default new Payment();

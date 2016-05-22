@@ -9,6 +9,7 @@ import PayButton from '../PayButton';
 import Billing from '../Billing';
 import OrderCreateFrom from '../OrderCreateFrom/OrderCreateFrom';
 import JoinOrder from '../JoinOrder/JoinOrder';
+import OrderSelector from '../OrderSelector/OrderSelector'
 
 var App = React.createClass({
   getInitialState: function () {
@@ -30,6 +31,7 @@ var App = React.createClass({
     return (
       <div>
         <div>
+          <OrderSelector />
           <OrderInfo />
           <MarketingInfo  />
           <Billing />

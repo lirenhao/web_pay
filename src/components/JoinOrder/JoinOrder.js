@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import ActionCreator from '../../actions/ActionCreator'
+import Payment from '../../Payment'
 var JoinOrder = React.createClass({
   getInitialState: function () {
     return {orderId: ""};
@@ -12,7 +12,7 @@ var JoinOrder = React.createClass({
     this.setState({orderId: event.target.value});
   },
   handleJoin: function () {
-    ActionCreator.joinOrder(this.state.orderId);
+    Payment.joinOrder(this.state.orderId);
   },
   render: function () {
     return (

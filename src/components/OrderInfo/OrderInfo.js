@@ -6,17 +6,19 @@ import ProductList from './ProductList';
 import PaymentStore from '../../stores/PaymentStore.js';
 import Const from '../../constants/PaymentConstants.js';
 
-var EventType = Const.EventType;
+var OrderEventType = Const.OrderEventType;
 
 var OrderInfo = React.createClass({
   getInitialState: function () {
     return PaymentStore.getPaymentInfo().orderInfo || {};
   },
   componentDidMount: function () {
-    PaymentStore.addChangeListener(EventType.ORDER_ITEMS, this._onChange);
+    PaymentStore.addChangeListener(OrderEventType.ITEMS_CHANGED, this._onChange);
+    PaymentStore.addChangeListener(OrderEventType.ORDER_CHANGED, this._onChange);
   },
   componentWillUnmount: function () {
-    PaymentStore.removeChangeListener(EventType.ORDER_ITEMS, this._onChange);
+    PaymentStore.removeChangeListener(OrderEventType.ITEMS_CHANGED, this._onChange);
+    PaymentStore.removeChangeListener(OrderEventType.ORDER_CHANGED, this._onChange);
   },
   _onChange: function () {
     this.setState({orderInfo: PaymentStore.getPaymentInfo().orderInfo});

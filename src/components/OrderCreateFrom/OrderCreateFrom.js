@@ -3,15 +3,9 @@
  */
 import React from 'react'
 import OrderItem from './OrderItem'
-import ActionCreator from '../../actions/ActionCreator'
+import {Payment} from '../../Payment'
 
-var acC = function() {
-  ActionCreator.__proto__.constructor.call(this)
-};
-
-acC.prototype = Object.create(ActionCreator.__proto__);
-
-var ac = new acC();
+var payment = new Payment();
 var OrderCreateFrom = React.createClass({
   getInitialState: function () {
     // return {items: []}
@@ -42,7 +36,7 @@ var OrderCreateFrom = React.createClass({
   }
   ,
   handleCreateOrder: function () {
-    ac.createOrder({id: this.state.id, terminalType: "MERCHANT", products: this.state.items})
+    payment.createOrder({id: this.state.id, terminalType: "MERCHANT", products: this.state.items})
   },
   handleAddItem: function () {
     this.setState({items: [...this.state.items, {name: "", price: "", quantity: ""}]})
