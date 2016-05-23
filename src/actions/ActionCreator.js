@@ -14,12 +14,12 @@ class ActionCreator {
     PaymentDispatcher.dispatch({eventType: ClientCmd.SELECT_ORDER, orderId: orderId});
   }
 
-  static paying() {
-    PaymentDispatcher.dispatch({eventType: ClientCmd.PAYING});
+  static paying(orderId) {
+    PaymentDispatcher.dispatch({eventType: ClientCmd.PAYING, orderId: orderId});
   }
 
   static removeOrder(orderId) {
-    PaymentDispatcher.dispatch({eventType: ClientCmd.REMOVE_COMPLETED_ORDER});
+    PaymentDispatcher.dispatch({eventType: ClientCmd.REMOVE_COMPLETED_ORDER, orderId: orderId});
   }
 }
 

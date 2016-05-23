@@ -14,9 +14,11 @@ var MarketingInfo = React.createClass({
   },
   componentDidMount: function () {
     PaymentStore.addChangeListener(OrderEventType.MARKETING_CHANGED, this._onChange);
+    PaymentStore.addChangeListener(OrderEventType.ORDER_CHANGED, this._onChange);
   },
   componentWillUnmount: function () {
     PaymentStore.removeChangeListener(OrderEventType.MARKETING_CHANGED, this._onChange);
+    PaymentStore.removeChangeListener(OrderEventType.ORDER_CHANGED, this._onChange);
   },
   _onChange: function () {
     this.setState({marketing: PaymentStore.getPaymentInfo().marketing});
