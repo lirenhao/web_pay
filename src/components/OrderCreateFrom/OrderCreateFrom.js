@@ -73,7 +73,7 @@ var OrderCreateFrom = React.createClass({
     />));
     return (
       <form>
-        <input name="id" placeholder="终端号" onChange={this.handleTerminalIdChange} defaultValue={this.state.id}/>
+        <input name="id" placeholder="终端号" onChange={this.handleTerminalIdChange} value={this.state.id}/>
         {children}
         <div>
           <input type="button" value="添加" onClick={this.handleAddItem}/>
