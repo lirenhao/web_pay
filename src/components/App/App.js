@@ -2,14 +2,8 @@
  * Created by cuita on 2016/5/1.
  */
 
-import React from 'react';
-import OrderInfo from '../OrderInfo';
-import MarketingInfo from '../MarketingInfo';
-import PayButton from '../PayButton';
-import Billing from '../Billing';
-import OrderCreateFrom from '../OrderCreateFrom/OrderCreateFrom';
-import JoinOrder from '../JoinOrder/JoinOrder';
-import OrderSelector from '../OrderSelector/OrderSelector'
+import React, {PropTypes} from 'react';
+import emptyFunction from 'fbjs/lib/emptyFunction';
 
 var App = React.createClass({
   getInitialState: function () {
@@ -23,26 +17,34 @@ var App = React.createClass({
         msg: "测试优惠"
       },
       payResult: null,
-      payStatus: require('../../constants/PaymentConstants.js').default.LocalStatus.ready
+      payStatus: require('../../constants/PaymentConstants.js').default.LocalStatus.READY
     };
+  },
+  childContextTypes: {
+    insertCss: PropTypes.func.isRequired,
+    setTitle: PropTypes.func.isRequired,
+    setMeta: PropTypes.func.isRequired,
+  },
+  getChildContext: function() {
+    const context = this.props.context;
+    return {
+      insertCss: context.insertCss || emptyFunction,
+      setTitle: context.setTitle || emptyFunction,
+      setMeta: context.setMeta || emptyFunction
+    }
+  },
+  componentWillMount: function() {
+    //const { insertCss } = this.props.context;
+    //this.removeCss = insertCss(s);
+  },
+  componentWillUnmount: function() {
+    //this.removeCss();
   },
   render: function () {
 
     return (
       <div>
-        <div>
-          <OrderSelector />
-          <OrderInfo />
-          <MarketingInfo  />
-          <Billing />
-          <PayButton />
-        </div>
-        <div>
-          <OrderCreateFrom />
-        </div>
-        <div>
-          <JoinOrder />
-        </div>
+        {this.props.children}
       </div>
     );
   }

@@ -25,8 +25,15 @@ var OrderSelector = React.createClass({
   handleClick: function (orderId) {
     ActionCreator.selectOrder(orderId);
   },
+  handleDeleteClick: function () {
+    ActionCreator.removeOrder(PaymentStore.getCurrentOrderId());
+  },
   render: function () {
-    var idComponents = this.state.ids.map(idInfo => <a href="javascript:void(0)" onClick={this.handleClick.bind(null, idInfo.orderId)} key={idInfo.orderId}>{idInfo.orderId}</a>);
+    var idComponents = this.state.ids.map(idInfo =>
+      <a href="javascript:void(0)" onClick={this.handleClick.bind(null, idInfo.orderId)} key={idInfo.orderId}>
+        {idInfo.orderId}
+      </a>
+    );
     return (
       <div>
         {idComponents}

@@ -84,8 +84,10 @@ PaymentStore.dispatchToken = PaymentDispatcher.register(function (action) {
       emitChange(OrderEventType.STATUS_CHANGED);
       break;
     case ClientCmd.REMOVE_COMPLETED_ORDER:
-      delete _orders[msg.orderId];
-      emitChange(OrderEventType.ORDER_CHANGED);
+      if (!_orders[msg.orderId] && !_orders[msg.orderId].payResult) {
+        delete _orders[msg.orderId];
+        emitChange(OrderEventType.ORDER_CHANGED);
+      }
       break;
     case ClientCmd.SELECT_ORDER:
       _currentOrderId = msg.orderId;

@@ -29,17 +29,14 @@ var PayButton = React.createClass({
       payStatus: PaymentStore.getPayStatus()
     });
   },
-  handleTabClick: function () {
+  handleClick: function () {
     Payment.reqPayAuth(PaymentStore.getPaymentInfo().orderInfo.orderId);
     ActionCreator.paying(PaymentStore.getCurrentOrderId());
-  },
-  handleDeleteClick: function () {
-    ActionCreator.removeOrder(Payment.getCurrentOrderId());
   },
   render: function () {
     switch (this.state.payStatus) {
       case LocalStatus.READY:
-        return (<input type="button" onClick={this.handleTabClick} value="支付" />);
+        return (<input type="button" onClick={this.handleClick} value="支付" />);
       case LocalStatus.WAIT_PAY_AUTH:
         return (<input type="button" value="支付" disabled="disabled"/>);
       default:
