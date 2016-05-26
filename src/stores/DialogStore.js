@@ -25,11 +25,11 @@ var DialogStore = assign({}, EventEmitter.prototype, {
 });
 
 DialogStore.dispatchToken = DialogDispatcher.register(function (action) {
-  var {eventType, msg} = action;
+  var {eventType, ...msg} = action;
   var emitChange = DialogStore.emitChange.bind(DialogStore);
 
   switch (eventType) {
-    case DialogCmd.OPEN:
+    case DialogCmd.SHOW:
       _dialogQueue.push(msg);
       emitChange(DialogEvent.SHOW_NEXT);
       break;

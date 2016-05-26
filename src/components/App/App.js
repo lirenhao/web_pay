@@ -17,7 +17,7 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {dialogQueue: PaymentStore.getDialogQueueRef()};
+    this.state = {dialogQueue: DialogStore.getDialogQueueRef()};
     this._onNext = this._onNext.bind(this);
   }
 
