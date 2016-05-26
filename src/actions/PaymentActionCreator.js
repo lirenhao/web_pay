@@ -5,7 +5,7 @@ import Const from '../constants/PaymentConstants.js';
 import PaymentDispatcher from '../dispatcher/PaymentDispatcher.js';
 var ClientCmd = Const.ClientCmd;
 
-class ActionCreator {
+class PaymentActionCreator {
   static serverAction(msg) {
     PaymentDispatcher.dispatch(msg);
   }
@@ -23,4 +23,4 @@ class ActionCreator {
   }
 }
 
-export default ActionCreator;
+export default PaymentActionCreator;

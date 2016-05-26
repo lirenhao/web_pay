@@ -1,16 +1,22 @@
 /**
  * Created by cuita on 2016/5/1.
  */
-import React from 'react';
+import React, {PropTypes} from 'react';
 import PaymentStore from '../../stores/PaymentStore.js';
 import Payment from '../../Payment';
 import Const from '../../constants/PaymentConstants.js';
-import ActionCreator from '../../actions/ActionCreator';
+import PaymentActionCreator from '../../actions/PaymentActionCreator';
+
 
 var LocalStatus = Const.LocalStatus;
 var OrderEventType = Const.OrderEventType;
 
 var PayButton = React.createClass({
+  propTypes: {
+    onPay: PropTypes.func.isRequired,
+    canCancel: PropTypes.bool.isRequired,
+    onCancel: PropTypes.func
+  },
   getInitialState: function() {
     return {
       payStatus: PaymentStore.getPayStatus()
@@ -31,17 +37,32 @@ var PayButton = React.createClass({
   },
   handleClick: function () {
     Payment.reqPayAuth(PaymentStore.getPaymentInfo().orderInfo.orderId);
-    ActionCreator.paying(PaymentStore.getCurrentOrderId());
+    PaymentActionCreator.paying(PaymentStore.getCurrentOrderId());
   },
   render: function () {
-    switch (this.state.payStatus) {
-      case LocalStatus.READY:
-        return (<input type="button" onClick={this.handleClick} value="支付" />);
-      case LocalStatus.WAIT_PAY_AUTH:
-        return (<input type="button" value="支付" disabled="disabled"/>);
-      default:
+    var getPayBtn = () => {
+      switch (this.state.payStatus) {
+        case LocalStatus.READY:
+          return (<input type="button" onClick={() => this.props.onPay(PaymentStore.getCurrentOrderId())} value="支付"/>);
+        case LocalStatus.WAIT_PAY_AUTH:
+          return (<input type="button" value="支付" disabled="disabled"/>);
+        default:
+          return null;
+      }
+    };
+    var getCancelBtn = () => {
+      if(this.props.canCancel)
+        return (<input type="button" onClick={() => this.props.onCancel(PaymentStore.getCurrentOrderId())} value="取消" />)
+      else
         return null;
-    }
+    };
+
+    return (
+      <div>
+        {getPayBtn()}
+        {getCancelBtn()}
+      </div>
+    );
   }
 });
 

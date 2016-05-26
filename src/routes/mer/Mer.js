@@ -9,9 +9,10 @@ import Billing from '../../components/Billing/Billing';
 import PayButton from '../../components/PayButton/PayButton';
 import Payment from '../../Payment';
 import PaymentActionCreator from '../../actions/PaymentActionCreator';
+import DialogActionCreator from '../../actions/DialogActionCreator';
 
-function User(props, context) {
-  context.setTitle("用户支付");
+function Mer(props, context) {
+  context.setTitle("商户支付");
 
   return (
     <div>
@@ -19,13 +20,22 @@ function User(props, context) {
       <OrderInfo />
       <MarketingInfo />
       <Billing />
-      <PayButton canCancel={false} onPay={orderId => {
+      <PayButton canCancel={true} onPay={orderId => {
         Payment.reqPayAuth(orderId);
         PaymentActionCreator.paying(orderId);
-      }}/>
+        DialogActionCreator.show({title: "test title", message: "test message", btns: [
+        {
+          name: "确定",
+          onClick: () => DialogActionCreator.close()
+        }
+        ]})
+      }} onCancel={orderId =>{
+        Payment.cancelOrder(orderId);
+        PaymentActionCreator.removeOrder(orderId);
+      }} />
     </div>
   )
 }
 
-User.contextTypes = {setTitle: PropTypes.func.isRequired};
-export default User;
+Mer.contextTypes = {setTitle: PropTypes.func.isRequired};
+export default Mer;

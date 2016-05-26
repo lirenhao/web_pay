@@ -92,8 +92,6 @@ class Payment {
   open() {
     if (this._isClosed && !this._waitOpen) {
       try {
-
-        console.log("123")
         this._waitOpen = true;
         this.webSocket = new WebSocket(process.env.wsUrl);
         this.webSocket.onopen = (event) => {
@@ -112,7 +110,6 @@ class Payment {
         };
 
         this.webSocket.onerror = this.handleErr;
-        console.log("123")
       } catch (e) {
         console.log(e);
       }

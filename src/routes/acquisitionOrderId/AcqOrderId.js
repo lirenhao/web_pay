@@ -13,7 +13,9 @@ function AcqOrderId(props, context) {
       <JoinOrder joinOrder={(id) => {
       Payment.joinOrder(id);
       history.push("/user");
-      }}/>
+      }} onEntryOrder={() => {
+      history.push("/user");
+      }} />
     </div>
   )
 }

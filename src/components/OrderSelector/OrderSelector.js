@@ -5,7 +5,7 @@
 import React from 'react';
 import PaymentStore from '../../stores/PaymentStore'
 import Const from '../../constants/PaymentConstants.js';
-import ActionCreator from '../../actions/ActionCreator';
+import PaymentActionCreator from '../../actions/PaymentActionCreator';
 
 var OrderEventType = Const.OrderEventType;
 
@@ -23,10 +23,10 @@ var OrderSelector = React.createClass({
     return this.setState({ids: PaymentStore.getOrderIds()});
   },
   handleClick: function (orderId) {
-    ActionCreator.selectOrder(orderId);
+    PaymentActionCreator.selectOrder(orderId);
   },
   handleDeleteClick: function () {
-    ActionCreator.removeOrder(PaymentStore.getCurrentOrderId());
+    PaymentActionCreator.removeOrder(PaymentStore.getCurrentOrderId());
   },
   render: function () {
     var idComponents = this.state.ids.map(idInfo =>

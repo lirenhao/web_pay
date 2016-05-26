@@ -15,7 +15,7 @@ var _currentOrderId = null;
 var _orders = {};
 
 var PaymentStore = assign({}, EventEmitter.prototype, {
-  emitChange: function (orderId, eventType) {
+  emitChange: function (eventType) {
     this.emit(eventType);
   },
   addChangeListener: function (eventType, callback) {
@@ -49,33 +49,34 @@ var PaymentStore = assign({}, EventEmitter.prototype, {
 PaymentStore.dispatchToken = PaymentDispatcher.register(function (action) {
   var {eventType, ...msg} = action;
 
-  if (!_currentOrderId && msg.orderId) {
-    _currentOrderId = msg.orderId;
-  }
-
-  var emitChange = PaymentStore.emitChange.bind(PaymentStore, msg.orderId);
+  var emitChange = PaymentStore.emitChange.bind(PaymentStore);
 
   switch (eventType) {
     case ClientCmd.ORDER_ITEMS:
-      if (!_orders[msg.orderId]) {
-        _orders[msg.orderId] = {orderInfo: msg, payStatus: LocalStatus.UNREADY};
-        emitChange(OrderEventType.ORDER_CHANGED);
+      if (!_currentOrderId) {
+        _currentOrderId = msg.orderId;
       }
+      _orders[msg.orderId] = {orderInfo: msg, payStatus: LocalStatus.UNREADY};
+      emitChange(OrderEventType.ORDER_CHANGED);
       emitChange(OrderEventType.ITEMS_CHANGED);
       break;
     case ClientCmd.MARKETING:
+      if (!_orders[msg.orderId]) break;
       _orders[msg.orderId].marketing = msg;
       emitChange(OrderEventType.MARKETING_CHANGED);
       _orders[msg.orderId].payStatus = LocalStatus.READY;
       emitChange(OrderEventType.STATUS_CHANGED);
       break;
     case ClientCmd.PAY_COMPLETED:
+      if (!_orders[msg.orderId]) break;
+      console.log(_currentOrderId);
       _orders[_currentOrderId].payResult = msg;
       emitChange(OrderEventType.ORDER_COMPLETED);
       _orders[msg.orderId].payStatus = LocalStatus.PAY_COMPLETED;
       emitChange(OrderEventType.STATUS_CHANGED);
       break;
     case ClientCmd.PAY_AUTH:
+      if(!_orders[msg.orderId]) break;
       _orders[msg.orderId].payStatus = LocalStatus.UNREADY;
       emitChange(OrderEventType.STATUS_CHANGED);
       break;
@@ -84,10 +85,14 @@ PaymentStore.dispatchToken = PaymentDispatcher.register(function (action) {
       emitChange(OrderEventType.STATUS_CHANGED);
       break;
     case ClientCmd.REMOVE_COMPLETED_ORDER:
-      if (!_orders[msg.orderId] && !_orders[msg.orderId].payResult) {
+      if(!_orders[msg.orderId]) break;
         delete _orders[msg.orderId];
+        var keys = Object.keys(_orders);
+        if (keys.length == 0)
+          _currentOrderId = undefined;
+        else
+          _currentOrderId = keys[0];
         emitChange(OrderEventType.ORDER_CHANGED);
-      }
       break;
     case ClientCmd.SELECT_ORDER:
       _currentOrderId = msg.orderId;

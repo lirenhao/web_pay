@@ -10,7 +10,7 @@ var OrderEventType = Const.OrderEventType;
 
 var OrderInfo = React.createClass({
   getInitialState: function () {
-    return PaymentStore.getPaymentInfo().orderInfo || {};
+    return {orderInfo: PaymentStore.getPaymentInfo().orderInfo || {}};
   },
   componentDidMount: function () {
     PaymentStore.addChangeListener(OrderEventType.ITEMS_CHANGED, this._onChange);
@@ -29,7 +29,7 @@ var OrderInfo = React.createClass({
         <div>
           <h1>{this.state.orderInfo.orderId}</h1>
           <h2>订单信息</h2>
-          <ProductList products={this.state.orderInfo.products}/>
+          <ProductList products={this.state.orderInfo.products || []}/>
         </div>
       )
     } else {

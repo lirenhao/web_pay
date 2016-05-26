@@ -21,7 +21,7 @@ const TerminalType = Const.TerminalType;
 //     <div>
 //       <div><label>用户名:</label><input ref={c => this.usernameInput = c} /></div>
 //       <div>
-//         <label>类型:</label>
+//         <label>类型:</label>F
 //         <input ref={c => this.merRadio = c} type="radio" name="terminalType" defaultValue="MERCHANT" defaultChecked={true} /> 商户
 //         <input type="radio" name="terminalType" defaultValue="USER" /> 用户
 //       </div>

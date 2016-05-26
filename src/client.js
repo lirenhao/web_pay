@@ -4,14 +4,12 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import ActionCreator from "./actions/ActionCreator.js";
+import PaymentActionCreator from "./actions/PaymentActionCreator.js";
 import Payment from "./Payment";
 import FastClick from "fastclick";
 import {match} from "universal-router";
 import routes from "./routes";
 import history from './core/history';
-import Const from "./constants/PaymentConstants.js";
-var TerminalType = Const.TerminalType;
 
 const context = {
   insertCss: styles => styles["_insertCss"](),
@@ -81,6 +79,6 @@ function run() {
   });
 }
 window.addEventListener("load", () => {
-  Payment.setMsgHandler(msg => ActionCreator.serverAction(msg));
+  Payment.setMsgHandler(msg => PaymentActionCreator.serverAction(msg));
   run();
 });

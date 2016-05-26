@@ -5,6 +5,7 @@
 import React, {PropTypes} from 'react';
 import OrderCreateFrom from '../../components/OrderCreateFrom/OrderCreateFrom';
 import Payment from '../../Payment/Payment';
+import history from '../../core/history';
 
 function AcqOrder(props, context) {
   context.setTitle("创建订单");
@@ -27,7 +28,11 @@ function AcqOrder(props, context) {
   ]
   return (
     <div>
-      <OrderCreateFrom items={items} createOrder={items => Payment.createOrder(items)} />
+      <OrderCreateFrom items={items} createOrder={items => {
+      Payment.createOrder({products: items});
+
+      history.push("/mer");
+      }} onEntryOrder={() => history.push("/mer") } />
     </div>
   );
 }
