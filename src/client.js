@@ -9,6 +9,7 @@ import Payment from "./Payment";
 import FastClick from "fastclick";
 import {match} from "universal-router";
 import routes from "./routes";
+import history from './core/history';
 import Const from "./constants/PaymentConstants.js";
 var TerminalType = Const.TerminalType;
 
@@ -65,22 +66,21 @@ function getJsonFromUrl() {
   return result;
 }
 
-// {id: "001", terminalType: TerminalType.USER}
-//ActionCreator.setUserProfile(getJsonFromUrl());
-
 function run() {
   const container = document.getElementById('app');
   FastClick.attach(document.body);
-  match(routes, {
-    path: '/',
-    context,
-    render: render.bind(undefined, container)
-  }).catch(err => console.error(err));
-
+  const removeHistoryListener = history.listen(location => {
+    match(routes, {
+      path: window.location.pathname,
+      context,
+      render: render.bind(undefined, container)
+    }).catch(err => console.error(err));
+  });
+  addEventListener(window, 'pagehide', () => {
+    removeHistoryListener();
+  });
 }
 window.addEventListener("load", () => {
-  Payment.setUserProfile({id: "001", terminalType: TerminalType.USER});
   Payment.setMsgHandler(msg => ActionCreator.serverAction(msg));
   run();
-  Payment.clientSignIn();
 });

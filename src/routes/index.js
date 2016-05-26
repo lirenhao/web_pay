@@ -3,15 +3,21 @@
  */
 
 import React from 'react';
-import home from './home';
+import user from './user';
 import App from '../components/App';
+import acqOrderId from './acquisitionOrderId';
+import acqOrder from './acquisitionOrder';
+import login from './login';
 
 export default {
 
   path: '/',
 
   children: [
-    home
+    user,
+    acqOrderId,
+    acqOrder,
+    login
   ],
 
   async action({ next, render, context }) {

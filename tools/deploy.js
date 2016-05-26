@@ -44,7 +44,7 @@ async function deploy() {
   process.argv.push('--release');
   await run(require('./build'));
 
-  // Push the content of the build folder to the remote server via Git
+  // Push the contents of the build folder to the remote server via Git
   await repo.add('--all .');
   await repo.commit('Update');
   await repo.push(remote.name, 'master');

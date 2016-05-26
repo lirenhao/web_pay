@@ -3,8 +3,66 @@
  */
 import Const from '../constants/PaymentConstants';
 var ServerCmd = Const.ServerCmd;
+class Payment2 {
+  constructor() {
+    this.msgQueue = [];
+  }
+  setUserProfile(userProfile) {
+    this.userProfile = userProfile;
+  }
+
+  setMsgHandler(handler) {
+    this.msgHandler = handler;
+  }
+
+  async open() {
+    return new Promise((resolve, reject) => {
+      if(this.isOpen) {
+        this.webSocket = new WebSocket(process.env.wsUrl);
+        this.webSocket.onopen = () => {
+          this.isOpen = true;
+          resolve();
+        };
+        this.webSocket.onerror = (e) => {
+          this.isOpen = false;
+          reject();
+          while(this.msgQueue.length != 0) {
+            this.msgQueue.shift().reject("error")
+          }
+        };
+        this.webSocket.onclose = () => {
+          this.isOpen = false;
+          while(this.msgQueue.length != 0) {
+            this.msgQueue.shift().reject("closed")
+          }
+        };
+        this.webSocket.onmessage = (e) => {
+          var {resolve} = this.msgQueue.shift();
+          resolve(e.data);
+        }
+      }
+      else {
+        resolve();
+      }
+    });
+  }
+
+  async sendMsg(msg) {
+    return this.open().then(() => {
+      var _msg = {...msg, ...this.userProfile};
+      new Promise((resolve, reject) => {
+        this.msgQueue.push({resolve, reject});
+        this.webSocket.send(JSON.stringify(_msg));
+      });
+    }).catch(e => {
+      console.log("web socket catch:" + e);
+      setTimeout(() => this.sendMsg(msg), 1000);
+    });
+  }
+}
 
 class Payment {
+  _isSignIn = false;
 
   constructor() {
     this._isClosed = true;
@@ -25,6 +83,7 @@ class Payment {
   }
 
   handleErr(err) {
+    console.log(err);
   }
 
   handleOpened() {
@@ -32,24 +91,31 @@ class Payment {
 
   open() {
     if (this._isClosed && !this._waitOpen) {
-      this._waitOpen = true;
-      this.webSocket = new WebSocket(process.env.wsUrl);
-      this.webSocket.onopen = (event) => {
-        this._isClosed = false;
-        this._waitOpen = false;
-        this.handleOpened();
-        this._tmpMessages.forEach(msg => Payment.prototype.send.call(this, msg));
-        this._tmpMessages = [];
-      };
-      this.webSocket.onclose = (event) => {
-        this._isClosed = true;
-      };
+      try {
 
-      this.webSocket.onmessage = (event) => {
-        this.handleMsg(JSON.parse(event.data));
-      };
+        console.log("123")
+        this._waitOpen = true;
+        this.webSocket = new WebSocket(process.env.wsUrl);
+        this.webSocket.onopen = (event) => {
+          this._isClosed = false;
+          this._waitOpen = false;
+          this.handleOpened();
+          this._tmpMessages.forEach(msg => Payment.prototype.send.call(this, msg));
+          this._tmpMessages = [];
+        };
+        this.webSocket.onclose = (event) => {
+          this._isClosed = true;
+        };
 
-      this.webSocket.onerror = this.handleErr;
+        this.webSocket.onmessage = (event) => {
+          this.handleMsg(JSON.parse(event.data));
+        };
+
+        this.webSocket.onerror = this.handleErr;
+        console.log("123")
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 
@@ -75,7 +141,12 @@ class Payment {
     this.send({
       eventType: ServerCmd.CLIENT_SIGN_IN,
       ...this.userProfile
-    })
+    });
+    this._isSignIn = true;
+  }
+
+  isSignIn() {
+    return this._isSignIn;
   }
 
   createOrder(orderInfo) {

@@ -3,12 +3,12 @@
  */
 
 import React from 'react';
-import Home from './Home';
+import User from './User';
 
 export default {
-  path: '/',
+  path: '/user',
 
   async action() {
-    return <Home />;
+    return <User />;
   }
 }
