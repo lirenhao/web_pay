@@ -21,7 +21,7 @@ class App extends Component {
     this._onNext = this._onNext.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     DialogStore.addChangeListener(DialogEvent.SHOW_NEXT, this._onNext);
   }
 

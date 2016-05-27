@@ -32,9 +32,12 @@ var OrderCreateFrom = React.createClass({
   },
   handleChange: function (index, name, value) {
     this.setState({items: this.state.items.map((v, i) => {
-      var row = {...v};
-      row[name] = value;
-      return row;
+      if(i == index) {
+        var row = {...v};
+        row[name] = value;
+        return row;
+      } else
+        return v;
     })})
   },
   render: function () {
