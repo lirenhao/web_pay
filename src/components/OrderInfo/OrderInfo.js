@@ -2,7 +2,7 @@
  * Created by cuita on 2016/5/1.
  */
 import React from 'react';
-import ProductList from './ProductList';
+import ProductList from './ItemList';
 import PaymentStore from '../../stores/PaymentStore.js';
 import Const from '../../constants/PaymentConstants.js';
 
@@ -10,7 +10,7 @@ var OrderEventType = Const.OrderEventType;
 
 var OrderInfo = React.createClass({
   getInitialState: function () {
-    return {orderInfo: PaymentStore.getPaymentInfo().orderInfo || {}};
+    return {orderInfo: PaymentStore.getCurPaymentInfo().orderInfo || {}};
   },
   componentDidMount: function () {
     PaymentStore.addChangeListener(OrderEventType.ITEMS_CHANGED, this._onChange);
@@ -21,7 +21,7 @@ var OrderInfo = React.createClass({
     PaymentStore.removeChangeListener(OrderEventType.ORDER_CHANGED, this._onChange);
   },
   _onChange: function () {
-    this.setState({orderInfo: PaymentStore.getPaymentInfo().orderInfo});
+    this.setState({orderInfo: PaymentStore.getCurPaymentInfo().orderInfo});
   },
   render: function () {
     if (this.state.orderInfo) {
@@ -29,7 +29,7 @@ var OrderInfo = React.createClass({
         <div>
           <h1>{this.state.orderInfo.orderId}</h1>
           <h2>订单信息</h2>
-          <ProductList products={this.state.orderInfo.products || []}/>
+          <ProductList items={this.state.orderInfo.items || []}/>
         </div>
       )
     } else {

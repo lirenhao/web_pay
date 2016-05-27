@@ -25,11 +25,11 @@ function AcqOrder(props, context) {
       price: 2690,
       quantity: 5
     }
-  ]
+  ];
   return (
     <div>
       <OrderCreateFrom items={items} createOrder={items => {
-      Payment.createOrder({products: items});
+      Payment.createOrder({items: items});
 
       history.push("/mer");
       }} onEntryOrder={() => history.push("/mer") } />

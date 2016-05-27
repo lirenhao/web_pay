@@ -9,7 +9,7 @@ import Billing from '../../components/Billing/Billing';
 import PayButton from '../../components/PayButton/PayButton';
 import Payment from '../../Payment';
 import PaymentActionCreator from '../../actions/PaymentActionCreator';
-import DialogActionCreator from '../../actions/DialogActionCreator';
+import history from '../../core/history';
 
 function Mer(props, context) {
   context.setTitle("商户支付");
@@ -20,15 +20,19 @@ function Mer(props, context) {
       <OrderInfo />
       <MarketingInfo />
       <Billing />
-      <PayButton canCancel={true} onPay={orderId => {
+      <PayButton canCancel={true} onReqPay={orderId => {
         Payment.reqPayAuth(orderId);
-        PaymentActionCreator.paying(orderId);
-        DialogActionCreator.show({title: "test title", message: "test message", btns: [
-        {
-          name: "确定",
-          onClick: () => DialogActionCreator.close()
-        }
-        ]})
+        // DialogActionCreator.show({title: "test title", message: "test message", btns: [
+        // {
+        //   name: "确定",
+        //   onClick: () => DialogActionCreator.close()
+        // }
+        // ]})
+      }} onPay={orderId => {
+        history.push({
+          pathname: '/payment',
+          query: {orderId: orderId}
+        });
       }} onCancel={orderId =>{
         Payment.cancelOrder(orderId);
         PaymentActionCreator.removeOrder(orderId);

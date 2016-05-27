@@ -11,8 +11,8 @@ var OrderEventType = Const.OrderEventType;
 var Billing = React.createClass({
   getInitialState: function() {
     return {
-      orderInfo: PaymentStore.getPaymentInfo().orderInfo,
-      marketing: PaymentStore.getPaymentInfo().marketing
+      orderInfo: PaymentStore.getCurPaymentInfo().orderInfo,
+      marketing: PaymentStore.getCurPaymentInfo().marketing
     };
   },
   componentDidMount: function () {
@@ -27,13 +27,13 @@ var Billing = React.createClass({
   },
   _onChange: function () {
     this.setState({
-      orderInfo: PaymentStore.getPaymentInfo().orderInfo,
-      marketing: PaymentStore.getPaymentInfo().marketing
+      orderInfo: PaymentStore.getCurPaymentInfo().orderInfo,
+      marketing: PaymentStore.getCurPaymentInfo().marketing
     });
   },
   render: function () {
     if (this.state.orderInfo && this.state.marketing) {
-      let totalAmt = this.state.orderInfo.products.reduce((amt, curP) => amt + curP.price * curP.quantity, 0);
+      let totalAmt = this.state.orderInfo.items.reduce((amt, curP) => amt + curP.price * curP.quantity, 0);
       return (
         <div>
           <h2>结算</h2>

@@ -3,11 +3,11 @@
  */
 
 import React from 'react';
-import Product from './Product';
+import Product from './Item';
 
-var ProductList = React.createClass({
+var ItemList = React.createClass({
   render: function () {
-    let rows = this.props.products.map( p => (<Product key={p.name} {...p} />))
+    let rows = this.props.items.map( p => (<Product key={p.name} {...p} />));
 
     return (
       <table>
@@ -24,4 +24,4 @@ var ProductList = React.createClass({
   }
 });
 
-export default ProductList;
+export default ItemList;

@@ -69,7 +69,8 @@ function run() {
   FastClick.attach(document.body);
   const removeHistoryListener = history.listen(location => {
     match(routes, {
-      path: window.location.pathname,
+      path: location.pathname,
+      query: location.query,
       context,
       render: render.bind(undefined, container)
     }).catch(err => console.error(err));

@@ -10,7 +10,7 @@ var OrderEventType = Const.OrderEventType;
 
 var MarketingInfo = React.createClass({
   getInitialState: function() {
-    return {marketing: PaymentStore.getPaymentInfo().marketing || {}};
+    return {marketing: PaymentStore.getCurPaymentInfo().marketing || {}};
   },
   componentDidMount: function () {
     PaymentStore.addChangeListener(OrderEventType.MARKETING_CHANGED, this._onChange);
@@ -21,7 +21,7 @@ var MarketingInfo = React.createClass({
     PaymentStore.removeChangeListener(OrderEventType.ORDER_CHANGED, this._onChange);
   },
   _onChange: function () {
-    this.setState({marketing: PaymentStore.getPaymentInfo().marketing});
+    this.setState({marketing: PaymentStore.getCurPaymentInfo().marketing});
   },
   render: function () {
     if (this.state.marketing) {

@@ -24,8 +24,11 @@ var PaymentStore = assign({}, EventEmitter.prototype, {
   removeChangeListener: function (eventType, callback) {
     this.removeListener(eventType, callback);
   },
-  getPaymentInfo: function () {
+  getCurPaymentInfo: function () {
     return _orders[_currentOrderId] == undefined ? {} : _orders[_currentOrderId];
+  },
+  getPaymentInfo: function (orderId) {
+    return _orders[orderId];
   },
   getPayStatus: function () {
     return _orders[_currentOrderId] == undefined ? LocalStatus.UNREADY : _orders[_currentOrderId].payStatus;
@@ -77,7 +80,7 @@ PaymentStore.dispatchToken = PaymentDispatcher.register(function (action) {
       break;
     case ClientCmd.PAY_AUTH:
       if(!_orders[msg.orderId]) break;
-      _orders[msg.orderId].payStatus = LocalStatus.UNREADY;
+      _orders[msg.orderId].payStatus = LocalStatus.PAY_AUTH;
       emitChange(OrderEventType.STATUS_CHANGED);
       break;
     case ClientCmd.PAYING:

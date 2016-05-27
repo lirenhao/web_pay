@@ -5,10 +5,10 @@
 import React from 'react';
 import Money from '../Money';
 
-var Product = React.createClass({
+var Item = React.createClass({
   render: function () {
     return (<tr><td>{this.props.name}</td><td><Money>{this.props.price}</Money></td><td>{this.props.quantity}</td></tr>)
   }
 });
 
-export default Product;
+export default Item;

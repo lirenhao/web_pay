@@ -34,7 +34,8 @@ export default {
     UNREADY: null,
     READY: null,
     PAY_COMPLETED: null,
-    WAIT_PAY_AUTH: null
+    WAIT_PAY_AUTH: null,
+    PAY_AUTH: null
   }),
   TerminalType: keyMirror({
     MERCHANT: null,

@@ -3,7 +3,6 @@
  */
 import React, {PropTypes} from 'react';
 import PaymentStore from '../../stores/PaymentStore.js';
-import Payment from '../../Payment';
 import Const from '../../constants/PaymentConstants.js';
 import PaymentActionCreator from '../../actions/PaymentActionCreator';
 
@@ -14,6 +13,7 @@ var OrderEventType = Const.OrderEventType;
 var PayButton = React.createClass({
   propTypes: {
     onPay: PropTypes.func.isRequired,
+    onReqPay: PropTypes.func.isRequired,
     canCancel: PropTypes.bool.isRequired,
     onCancel: PropTypes.func
   },
@@ -31,19 +31,23 @@ var PayButton = React.createClass({
     PaymentStore.removeChangeListener(OrderEventType.ORDER_CHANGED, this._onChange);
   },
   _onChange: function () {
+    var payState = PaymentStore.getPayStatus();
     this.setState({
       payStatus: PaymentStore.getPayStatus()
     });
-  },
-  handleClick: function () {
-    Payment.reqPayAuth(PaymentStore.getPaymentInfo().orderInfo.orderId);
-    PaymentActionCreator.paying(PaymentStore.getCurrentOrderId());
+    if(payState == LocalStatus.PAY_AUTH) {
+      this.props.onPay(PaymentStore.getCurrentOrderId());
+    }
   },
   render: function () {
     var getPayBtn = () => {
       switch (this.state.payStatus) {
         case LocalStatus.READY:
-          return (<input type="button" onClick={() => this.props.onPay(PaymentStore.getCurrentOrderId())} value="支付"/>);
+          return (<input type="button" onClick={() => {
+          var orderId = PaymentStore.getCurrentOrderId();
+          PaymentActionCreator.paying(orderId);
+          this.props.onReqPay(orderId);
+          }} value="支付"/>);
         case LocalStatus.WAIT_PAY_AUTH:
           return (<input type="button" value="支付" disabled="disabled"/>);
         default:
@@ -52,7 +56,7 @@ var PayButton = React.createClass({
     };
     var getCancelBtn = () => {
       if(this.props.canCancel)
-        return (<input type="button" onClick={() => this.props.onCancel(PaymentStore.getCurrentOrderId())} value="取消" />)
+        return (<input type="button" onClick={() => this.props.onCancel(PaymentStore.getCurrentOrderId())} value="取消" />);
       else
         return null;
     };

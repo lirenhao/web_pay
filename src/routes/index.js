@@ -8,7 +8,8 @@ import App from '../components/App';
 import acqOrderId from './acquisitionOrderId';
 import acqOrder from './acquisitionOrder';
 import login from './login';
-import mer from './mer'
+import mer from './mer';
+import payment from './payment';
 
 export default {
 
@@ -19,7 +20,8 @@ export default {
     acqOrderId,
     acqOrder,
     login,
-    mer
+    mer,
+    payment
   ],
 
   async action({ next, render, context }) {
