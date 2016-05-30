@@ -6,7 +6,7 @@ import React, {PropTypes} from 'react';
 
 var PayForm = function (props, context) {
   context.setTitle("支付");
-  var {orderInfo, onPayCompleted} = props;
+  var {orderInfo, onPayCompleted, onCancel} = props;
   var getOrderInfoComponent = (orderInfo) => {
     return (
       <div>
@@ -38,7 +38,8 @@ var PayForm = function (props, context) {
         <option value="0">成功</option>
         <option value="1">失败</option>
       </select>
-      <input value="确定" type="button" onClick={e => onPayCompleted(selector.value)}/>
+      <input value="确定" type="button" onClick={e => onPayCompleted(selector.value)} />
+      <input value="取消支付" type="button" onClick={onCancel} />
     </div>
   );
 };

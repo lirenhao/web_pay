@@ -18,6 +18,9 @@ class PaymentActionCreator {
     PaymentDispatcher.dispatch({eventType: ClientCmd.PAYING, orderId: orderId});
   }
 
+  static cancelPay(orderId) {
+    PaymentDispatcher.dispatch({eventType: ClientCmd.CANCEL_PAY, orderId: orderId});
+  }
   static removeOrder(orderId) {
     PaymentDispatcher.dispatch({eventType: ClientCmd.REMOVE_COMPLETED_ORDER, orderId: orderId});
   }

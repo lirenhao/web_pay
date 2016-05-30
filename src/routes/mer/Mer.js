@@ -8,7 +8,6 @@ import MarketingInfo from '../../components/MarketingInfo/MarketingInfo';
 import Billing from '../../components/Billing/Billing';
 import PayButton from '../../components/PayButton/PayButton';
 import Payment from '../../Payment';
-import PaymentActionCreator from '../../actions/PaymentActionCreator';
 import history from '../../core/history';
 
 function Mer(props, context) {
@@ -35,7 +34,6 @@ function Mer(props, context) {
         });
       }} onCancel={orderId =>{
         Payment.cancelOrder(orderId);
-        PaymentActionCreator.removeOrder(orderId);
       }} />
     </div>
   )

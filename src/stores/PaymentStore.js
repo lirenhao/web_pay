@@ -101,6 +101,10 @@ PaymentStore.dispatchToken = PaymentDispatcher.register(function (action) {
       _currentOrderId = msg.orderId;
       emitChange(OrderEventType.ORDER_CHANGED);
       break;
+    case ClientCmd.CANCEL_PAY:
+      _orders[msg.orderId].payStatus = LocalStatus.READY;
+      emitChange(OrderEventType.STATUS_CHANGED);
+      break;
     default:
       break;
   }

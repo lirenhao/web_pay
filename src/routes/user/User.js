@@ -19,9 +19,13 @@ function User(props, context) {
       <OrderInfo />
       <MarketingInfo />
       <Billing />
-      <PayButton canCancel={false} onPay={orderId => {
-        Payment.reqPayAuth(orderId);
-        PaymentActionCreator.paying(orderId);
+      <PayButton canCancel={false} onReqPay={orderId => {
+      Payment.reqPayAuth(orderId);
+      }} onPay={orderId => {
+        history.push({
+          pathname: '/payment',
+          query: {orderId: orderId}
+        });
       }}/>
     </div>
   )

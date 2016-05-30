@@ -28,7 +28,8 @@ export default {
     PAY_AUTH: null,
     PAYING: null,
     REMOVE_COMPLETED_ORDER: null,
-    SELECT_ORDER: null
+    SELECT_ORDER: null,
+    CANCEL_PAY: null
   }),
   LocalStatus: keyMirror({
     UNREADY: null,
