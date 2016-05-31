@@ -6,6 +6,8 @@ import PaymentDispatcher from '../dispatcher/PaymentDispatcher';
 import Const from '../constants/PaymentConstants';
 import EventEmitter from 'events';
 import assign from 'object-assign';
+import DialogActionCreator from '../actions/DialogActionCreator';
+import PaymentActionCreator from '../actions/PaymentActionCreator';
 
 var ClientCmd = Const.ClientCmd;
 var OrderEventType = Const.OrderEventType;
@@ -72,11 +74,17 @@ PaymentStore.dispatchToken = PaymentDispatcher.register(function (action) {
       break;
     case ClientCmd.PAY_COMPLETED:
       if (!_orders[msg.orderId]) break;
-      console.log(_currentOrderId);
       _orders[_currentOrderId].payResult = msg;
       emitChange(OrderEventType.ORDER_COMPLETED);
       _orders[msg.orderId].payStatus = LocalStatus.PAY_COMPLETED;
       emitChange(OrderEventType.STATUS_CHANGED);
+      DialogActionCreator.show({title: "订单完成", message: msg.msg, btns:[{
+        name: "确定",
+        onClick: () => {
+          PaymentActionCreator.removeOrder(msg.orderId);
+          DialogActionCreator.close();
+        }
+      }]});
       break;
     case ClientCmd.PAY_AUTH:
       if(!_orders[msg.orderId]) break;

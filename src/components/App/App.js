@@ -30,6 +30,7 @@ class App extends Component {
   }
 
   _onNext() {
+    console.log("123");
     this.forceUpdate();
   }
   

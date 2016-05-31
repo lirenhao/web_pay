@@ -8,7 +8,7 @@ import MarketingInfo from '../../components/MarketingInfo/MarketingInfo';
 import Billing from '../../components/Billing/Billing';
 import PayButton from '../../components/PayButton/PayButton';
 import Payment from '../../Payment';
-import PaymentActionCreator from '../../actions/PaymentActionCreator';
+import history from '../../core/history';
 
 function User(props, context) {
   context.setTitle("用户支付");
@@ -22,6 +22,7 @@ function User(props, context) {
       <PayButton canCancel={false} onReqPay={orderId => {
       Payment.reqPayAuth(orderId);
       }} onPay={orderId => {
+      console.log(orderId);
         history.push({
           pathname: '/payment',
           query: {orderId: orderId}
