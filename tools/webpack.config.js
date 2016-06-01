@@ -93,7 +93,7 @@ const config = {
         test: /\.scss$/,
         loaders: [
           'isomorphic-style-loader',
-          `css-loader?${JSON.stringify({ sourceMap: DEBUG, minimize: !DEBUG })}`,
+          `css-loader?${JSON.stringify({ sourceMap: DEBUG, modules: true, minimize: !DEBUG })}`,
           'postcss-loader?pack=sass',
           'sass-loader',
         ],

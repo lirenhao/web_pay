@@ -1,0 +1,73 @@
+$white-base: hsl(0, 0, 1);
+$gray-darker: lighten(black, 13.5%);  /* #222 */
+$gray-dark: lighten(black, 25%);      /* #404040 */
+$gray: lighten(black, 33.5%);         /* #555 */
+$gray-light: lighten(black, 46.7%);   /* #777 */
+$gray-lighter: lighten(black, 93.5%); /* #eee */
+
+@mixin border-top-radius($radius) {
+  -webkit-border-top-left-radius: $radius;
+  -moz-border-top-left-radius: $radius;
+  -ms-border-top-left-radius: $radius;
+  border-top-left-radius: $radius;
+
+  -webkit-border-top-right-radius: $radius;
+  -moz-border-top-right-radius: $radius;
+  -ms-border-top-right-radius: $radius;
+  border-top-right-radius: $radius;
+}
+
+@mixin border-bottom-radius($radius) {
+  -webkit-border-bottom-left-radius: $radius;
+  -moz-border-bottom-left-radius: $radius;
+  -ms-border-bottom-left-radius: $radius;
+  border-bottom-left-radius: $radius;
+
+  -webkit-border-bottom-right-radius: $radius;
+  -moz-border-bottom-right-radius: $radius;
+  -ms-border-bottom-right-radius: $radius;
+  border-bottom-right-radius: $radius;
+}
+
+.model {
+  position: fixed;
+  display: flex;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(black, 0.8);
+  align-items: center;
+  justify-content: center;
+}
+
+.model_content {
+  background-color: white;
+  @include border-top-radius(10px);
+  @include border-bottom-radius(5px);
+  border: 1px solid black;
+  //background-color: #0000AA;
+  h1 {
+
+    @include border-top-radius(8px);
+    background-color: $gray;
+    margin-top: 0;
+    padding-left: 10px;
+    color: white;
+  }
+}
+
+$btn_color: $gray-light;
+
+.btn {
+  color: white;
+  border: 1px solid darken($btn_color, 10%);
+  background: $btn_color;
+  transform: rotate(30deg);
+}
+
+.btn:hover {
+  background-color: lighten($btn_color, 10%);
+}

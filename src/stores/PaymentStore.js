@@ -86,6 +86,20 @@ PaymentStore.dispatchToken = PaymentDispatcher.register(function (action) {
         }
       }]});
       break;
+    case ClientCmd.CANCEL_ORDER:
+      if (!_orders[msg.orderId]) break;
+      _orders[_currentOrderId].payResult = msg;
+      emitChange(OrderEventType.ORDER_COMPLETED);
+      _orders[msg.orderId].payStatus = LocalStatus.PAY_COMPLETED;
+      emitChange(OrderEventType.STATUS_CHANGED);
+      DialogActionCreator.show({title: "订单取消", message: "订单被商户取消", btns:[{
+        name: "确定",
+        onClick: () => {
+          PaymentActionCreator.removeOrder(msg.orderId);
+          DialogActionCreator.close();
+        }
+      }]});
+      break;
     case ClientCmd.PAY_AUTH:
       if(!_orders[msg.orderId]) break;
       _orders[msg.orderId].payStatus = LocalStatus.PAY_AUTH;
