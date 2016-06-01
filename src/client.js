@@ -10,6 +10,7 @@ import FastClick from "fastclick";
 import {match} from "universal-router";
 import routes from "./routes";
 import history from './core/history';
+import {addEventListener} from './core/DOMUtils';
 
 const context = {
   insertCss: styles => styles["_insertCss"](),
