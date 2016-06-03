@@ -67,7 +67,7 @@ var OrderCreateFrom = React.createClass({
       }
     };
     var getItems = () => {
-      return this.state.items.filter((r) => r.name != "" && r.price != "" && r.quantity != "");
+      return this.state.items.filter((r) => r.name != "" && r.price != "" && r.price != 0 && r.quantity != "" && r.quantity != 0);
     };
     return (
       <div>
