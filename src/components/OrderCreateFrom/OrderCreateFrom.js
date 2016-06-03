@@ -31,36 +31,55 @@ var OrderCreateFrom = React.createClass({
     this.forceUpdate();
   },
   handleChange: function (index, name, value) {
-    this.setState({items: this.state.items.map((v, i) => {
-      if(i == index) {
-        var row = {...v};
-        row[name] = value;
-        return row;
-      } else
-        return v;
-    })})
+    this.setState({
+      items: this.state.items.map((v, i) => {
+        if (i == index) {
+          var row = {...v};
+          row[name] = value;
+          return row;
+        } else
+          return v;
+      })
+    })
   },
   render: function () {
+    var s2i = (v, defaultV) => {
+      if (/^[0-9]+$/.test(v))
+        return parseInt(v);
+      else if (v == "")
+        return "";
+      else
+        return defaultV;
+    };
     var children = this.state.items.map((p, index) => (<OrderItem
       key={index} {...p}
       nameChange={e => this.handleChange(index, "name", e.target.value)}
-      priceChange={e => this.handleChange(index, "price", parseInt(e.target.value))}
-      quantityChange={e => this.handleChange(index, "quantity", parseInt(e.target.value))}
+      priceChange={e => this.handleChange(index, "price", s2i(e.target.value, this.state.items[index]["price"]))}
+      quantityChange={e => this.handleChange(index, "quantity", s2i(e.target.value, this.state.items[index]["quantity"]))}
       deleteItem={() => this.setState({items: this.state.items.filter((v, i) => i != index)})}
     />));
     var getOrdersBtn = () => {
-      if(PaymentStore.getOrderIds().length != 0) {
-        return <input type="button" value={"已有" + PaymentStore.getOrderIds().length + "个订单"} onClick={e => this.props.onEntryOrder()} />
+      if (PaymentStore.getOrderIds().length != 0) {
+        return <input type="button" value={"已有" + PaymentStore.getOrderIds().length + "个订单"}
+                      onClick={e => this.props.onEntryOrder()}/>
       } else {
         return null;
       }
+    };
+    var getItems = () => {
+      return this.state.items.filter((r) => r.name != "" && r.price != "" && r.quantity != "");
     };
     return (
       <div>
         {children}
         <div>
-          <input type="button" value="添加" onClick={() => this.setState({items: [...this.state.items, {name: "", price: "", quantity: ""}]})}/>
-          <input type="button" value="提交" onClick={() => this.props.createOrder([...this.state.items])}/>
+          <input type="button" value="添加"
+                 onClick={() => this.setState({items: [...this.state.items, {name: "", price: "", quantity: ""}]})}/>
+          <input type="button" value="提交" onClick={() => {
+          let items = getItems();
+          if(items.length > 0)
+            this.props.createOrder(items)
+          }} disabled={getItems().length == 0} />
           {getOrdersBtn()}
         </div>
       </div>
