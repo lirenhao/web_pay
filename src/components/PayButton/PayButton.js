@@ -55,7 +55,7 @@ var PayButton = React.createClass({
       }
     };
     var getCancelBtn = () => {
-      if(this.props.canCancel)
+      if(this.props.canCancel && PaymentStore.getCurrentOrderId() != undefined)
         return (<input type="button" onClick={() => {
         this.props.onCancel(PaymentStore.getCurrentOrderId())
         PaymentActionCreator.removeOrder(PaymentStore.getCurrentOrderId());
