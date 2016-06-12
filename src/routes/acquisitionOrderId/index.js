@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import AcqOrderId from './AcqOrderId';
+
 export default {
   path: '/acqOrderId',
 

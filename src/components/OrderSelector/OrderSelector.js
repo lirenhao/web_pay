@@ -2,7 +2,7 @@
  * Created by cuita on 2016/5/22.
  */
 
-import React from 'react';
+import React, {PropTypes} from 'react';
 import PaymentStore from '../../stores/PaymentStore'
 import Const from '../../constants/PaymentConstants.js';
 import PaymentActionCreator from '../../actions/PaymentActionCreator';
@@ -20,6 +20,8 @@ var OrderSelector = React.createClass({
     PaymentStore.removeChangeListener(OrderEventType.ORDER_CHANGED, this._onChange);
   },
   _onChange: function () {
+    if (PaymentStore.getOrderIds().length == 0)
+      this.props.onEmptyOrder();
     return this.setState({ids: PaymentStore.getOrderIds()});
   },
   handleClick: function (orderId) {
@@ -42,4 +44,7 @@ var OrderSelector = React.createClass({
   }
 });
 
+OrderSelector.PropTypes = {
+  onEmptyOrder: PropTypes.func.isRequired
+};
 export default OrderSelector;

@@ -15,7 +15,7 @@ function User(props, context) {
 
   return (
     <div>
-      <OrderSelector />
+      <OrderSelector onEmptyOrder={ () => history.push("/acqOrderId")} />
       <OrderInfo />
       <MarketingInfo />
       <Billing />

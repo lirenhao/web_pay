@@ -15,7 +15,7 @@ function Mer(props, context) {
 
   return (
     <div>
-      <OrderSelector />
+      <OrderSelector onEmptyOrder={ () => history.push("/acqOrder")} />
       <OrderInfo />
       <MarketingInfo />
       <Billing />
@@ -32,9 +32,9 @@ function Mer(props, context) {
           pathname: '/payment',
           query: {orderId: orderId}
         });
-      }} onCancel={orderId =>{
+      }} onCancel={orderId => {
         Payment.cancelOrder(orderId);
-      }} />
+      }}/>
     </div>
   )
 }
