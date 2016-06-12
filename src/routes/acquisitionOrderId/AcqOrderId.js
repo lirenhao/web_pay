@@ -12,9 +12,9 @@ function AcqOrderId(props, context) {
     <div>
       <JoinOrder joinOrder={(id) => {
       Payment.joinOrder(id);
-      history.push("/user");
+      history.push("/order");
       }} onEntryOrder={() => {
-      history.push("/user");
+      history.push("/order");
       }} />
     </div>
   )

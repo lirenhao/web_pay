@@ -31,8 +31,8 @@ function AcqOrder(props, context) {
       <OrderCreateFrom items={items} createOrder={items => {
       Payment.createOrder({items: items});
 
-      history.push("/mer");
-      }} onEntryOrder={() => history.push("/mer") } />
+      history.push("/order");
+      }} onEntryOrder={() => history.push("/order") } />
     </div>
   );
 }

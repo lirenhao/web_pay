@@ -3,12 +3,11 @@
  */
 
 import React from 'react';
-import user from './user';
+import order from './order';
 import App from '../components/App';
 import acqOrderId from './acquisitionOrderId';
 import acqOrder from './acquisitionOrder';
 import login from './login';
-import mer from './mer';
 import payment from './payment';
 
 export default {
@@ -16,11 +15,10 @@ export default {
   path: '/',
 
   children: [
-    user,
     acqOrderId,
     acqOrder,
     login,
-    mer,
+    order,
     payment
   ],
 

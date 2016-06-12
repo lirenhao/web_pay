@@ -10,8 +10,8 @@ import PayButton from '../../components/PayButton/PayButton';
 import Payment from '../../Payment';
 import history from '../../core/history';
 
-function Mer(props, context) {
-  context.setTitle("商户支付");
+function Order(props, context) {
+  context.setTitle("订单");
 
   return (
     <div>
@@ -19,14 +19,8 @@ function Mer(props, context) {
       <OrderInfo />
       <MarketingInfo />
       <Billing />
-      <PayButton canCancel={true} onReqPay={orderId => {
+      <PayButton canCancel={props.terminalType == "MERCHANT"} onReqPay={orderId => {
         Payment.reqPayAuth(orderId);
-        // DialogActionCreator.show({title: "test title", message: "test message", btns: [
-        // {
-        //   name: "确定",
-        //   onClick: () => DialogActionCreator.close()
-        // }
-        // ]})
       }} onPay={orderId => {
         history.push({
           pathname: '/payment',
@@ -38,6 +32,6 @@ function Mer(props, context) {
     </div>
   )
 }
-
-Mer.contextTypes = {setTitle: PropTypes.func.isRequired};
-export default Mer;
+Order.propTypes = {isMerchant: PropTypes.bool.isRequired};
+Order.contextTypes = {setTitle: PropTypes.func.isRequired};
+export default Order;
