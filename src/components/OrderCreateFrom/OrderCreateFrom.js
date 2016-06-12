@@ -31,20 +31,13 @@ var OrderCreateFrom = React.createClass({
     this.forceUpdate();
   },
   handleChange: function (index, name, value) {
-    this.setState({
-      items: this.state.items.map((v, i) => {
-        if (i == index) {
-          var row = {...v};
-          row[name] = value;
-          return row;
-        } else
-          return v;
-      })
-    })
+    this.state.items[index][name] = value;
+    this.forceUpdate();
   },
   render: function () {
-    var s2i = (v, defaultV) => {
-      if (/^[0-9]+$/.test(v))
+    var s2i = (v, defaultV, minLen, maxLen) => {
+      var regex = new RegExp("^[0-9]{" + minLen + "," + maxLen + "}$");
+      if (regex.test(v))
         return parseInt(v);
       else if (v == "")
         return "";
@@ -54,9 +47,12 @@ var OrderCreateFrom = React.createClass({
     var children = this.state.items.map((p, index) => (<OrderItem
       key={index} {...p}
       nameChange={e => this.handleChange(index, "name", e.target.value)}
-      priceChange={e => this.handleChange(index, "price", s2i(e.target.value, this.state.items[index]["price"]))}
-      quantityChange={e => this.handleChange(index, "quantity", s2i(e.target.value, this.state.items[index]["quantity"]))}
-      deleteItem={() => this.setState({items: this.state.items.filter((v, i) => i != index)})}
+      priceChange={e => this.handleChange(index, "price", s2i(e.target.value, this.state.items[index]["price"], 1, 6))}
+      quantityChange={e => this.handleChange(index, "quantity", s2i(e.target.value, this.state.items[index]["quantity"], 1, 3))}
+      deleteItem={() => {
+        this.state.items.splice(index, 1);
+        this.forceUpdate();
+      }}
     />));
     var getOrdersBtn = () => {
       if (PaymentStore.getOrderIds().length != 0) {
@@ -67,7 +63,7 @@ var OrderCreateFrom = React.createClass({
       }
     };
     var getItems = () => {
-      return this.state.items.filter((r) => r.name != "" && r.price != "" && r.price != 0 && r.quantity != "" && r.quantity != 0);
+      return this.state.items.filter((r) => r.name.trim() != "" && r.price != "" && r.price != 0 && r.quantity != "" && r.quantity != 0);
     };
     return (
       <div>
