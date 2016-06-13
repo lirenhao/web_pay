@@ -17,7 +17,6 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {dialogQueue: DialogStore.getDialogQueueRef()};
     this._onNext = this._onNext.bind(this);
   }
 
@@ -43,8 +42,8 @@ class App extends Component {
   }
 
   getDialog() {
-    if(this.state.dialogQueue.length != 0)
-      return <Dialog {...this.state.dialogQueue[0]} />;
+    if(DialogStore.getCurrentDialog() != undefined)
+      return <Dialog {...DialogStore.getCurrentDialog()} />;
     else
       return null;
   }
