@@ -110,14 +110,15 @@ PaymentStore.dispatchToken = PaymentDispatcher.register(function (action) {
       emitChange(OrderEventType.STATUS_CHANGED);
       break;
     case ClientCmd.REMOVE_COMPLETED_ORDER:
-      if(!_orders[msg.orderId]) break;
-        delete _orders[msg.orderId];
-        var keys = Object.keys(_orders);
-        if (keys.length == 0)
-          _currentOrderId = undefined;
-        else
-          _currentOrderId = keys[0];
-        emitChange(OrderEventType.ORDER_CHANGED);
+      if(!_orders[msg.orderId])
+        break;
+      delete _orders[msg.orderId];
+      var keys = Object.keys(_orders);
+      if (keys.length == 0)
+        _currentOrderId = undefined;
+      else
+        _currentOrderId = keys[0];
+      emitChange(OrderEventType.ORDER_CHANGED);
       break;
     case ClientCmd.SELECT_ORDER:
       _currentOrderId = msg.orderId;
@@ -135,6 +136,9 @@ PaymentStore.dispatchToken = PaymentDispatcher.register(function (action) {
           DialogActionCreator.close();
         }
       }]});
+      if(msg.orderId in _orders) {
+        delete _orders[msg.orderId];
+      }
       break;
     case ClientCmd.WARN:
       DialogActionCreator.show({title: "警告", message: msg.msg, btns:[{
