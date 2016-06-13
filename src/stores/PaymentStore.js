@@ -144,6 +144,7 @@ PaymentStore.dispatchToken = PaymentDispatcher.register(function (action) {
           DialogActionCreator.close();
         }
       }]});
+      break;
     default:
       break;
   }
