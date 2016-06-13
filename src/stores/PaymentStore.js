@@ -127,6 +127,23 @@ PaymentStore.dispatchToken = PaymentDispatcher.register(function (action) {
       _orders[msg.orderId].payStatus = LocalStatus.READY;
       emitChange(OrderEventType.STATUS_CHANGED);
       break;
+    case ClientCmd.FAIL:
+      DialogActionCreator.show({title: "错误", message: msg.msg, btns:[{
+        name: "确定",
+        onClick: () => {
+          PaymentActionCreator.removeOrder(msg.orderId);
+          DialogActionCreator.close();
+        }
+      }]});
+      break;
+    case ClientCmd.WARN:
+      DialogActionCreator.show({title: "警告", message: msg.msg, btns:[{
+        name: "确定",
+        onClick: () => {
+          PaymentActionCreator.removeOrder(msg.orderId);
+          DialogActionCreator.close();
+        }
+      }]});
     default:
       break;
   }

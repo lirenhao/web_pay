@@ -29,7 +29,9 @@ export default {
     PAYING: null,
     REMOVE_COMPLETED_ORDER: null,
     SELECT_ORDER: null,
-    CANCEL_PAY: null
+    CANCEL_PAY: null,
+    FAIL: null,
+    WARN: null
   }),
   LocalStatus: keyMirror({
     UNREADY: null,
