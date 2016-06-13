@@ -17,7 +17,7 @@ var PayButton = React.createClass({
     canCancel: PropTypes.bool.isRequired,
     onCancel: PropTypes.func
   },
-  getInitialState: function() {
+  getInitialState: function () {
     return {
       payStatus: PaymentStore.getPayStatus()
     };
@@ -35,7 +35,7 @@ var PayButton = React.createClass({
     this.setState({
       payStatus: PaymentStore.getPayStatus()
     });
-    if(payState == LocalStatus.PAY_AUTH) {
+    if (payState == LocalStatus.PAY_AUTH) {
       this.props.onPay(PaymentStore.getCurrentOrderId());
     }
   },
@@ -55,11 +55,17 @@ var PayButton = React.createClass({
       }
     };
     var getCancelBtn = () => {
-      if(this.props.canCancel && PaymentStore.getCurrentOrderId() != undefined)
-        return (<input type="button" onClick={() => {
-        this.props.onCancel(PaymentStore.getCurrentOrderId());
-        PaymentActionCreator.removeOrder(PaymentStore.getCurrentOrderId());
-        }} value="取消" />);
+      if (this.props.canCancel && PaymentStore.getCurrentOrderId() != undefined)
+        switch (this.state.payStatus) {
+          case LocalStatus.READY:
+            return (<input type="button" onClick={() => {
+              this.props.onCancel(PaymentStore.getCurrentOrderId());
+              PaymentActionCreator.removeOrder(PaymentStore.getCurrentOrderId());
+            }} value="取消"/>);
+          case LocalStatus.WAIT_PAY_AUTH:
+            return (<input type="button" value="取消" disabled="disabled"/>);
+        }
+
       else
         return null;
     };
