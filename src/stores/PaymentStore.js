@@ -134,12 +134,12 @@ PaymentStore.dispatchToken = PaymentDispatcher.register(function (action) {
         onClick: () => {
           PaymentActionCreator.removeOrder(msg.orderId);
           DialogActionCreator.close();
+          if(msg.orderId in _orders) {
+            delete _orders[msg.orderId];
+            emitChange(OrderEventType.ORDER_CHANGED);
+          }
         }
       }]});
-      if(msg.orderId in _orders) {
-        delete _orders[msg.orderId];
-        emitChange(OrderEventType.ORDER_CHANGED);
-      }
       break;
     case ClientCmd.MESSAGE:
       DialogActionCreator.show({title: msg.level, message: msg.msg, btns:[{
