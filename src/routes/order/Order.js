@@ -15,7 +15,12 @@ function Order(props, context) {
 
   return (
     <div>
-      <OrderSelector onEmptyOrder={ () => history.push("/acqOrder")} />
+      <OrderSelector onEmptyOrder={ () => {
+      if(props.isMerchant)
+        history.push("/acqOrder");
+      else
+        history.push("/acqOrderId");
+      }}/>
       <OrderInfo />
       <MarketingInfo />
       <Billing />
