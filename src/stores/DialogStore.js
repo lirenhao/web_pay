@@ -21,6 +21,9 @@ var DialogStore = assign({}, EventEmitter.prototype, {
   },
   getDialogQueueRef: function () {
     return _dialogQueue;
+  },
+  getCurrentDialog: function () {
+    return _dialogQueue[0];
   }
 });
 
@@ -34,6 +37,7 @@ DialogStore.dispatchToken = DialogDispatcher.register(function (action) {
       emitChange(DialogEvent.SHOW_NEXT);
       break;
     case DialogCmd.CLOSE:
+      _dialogQueue.shift();
       emitChange(DialogEvent.SHOW_NEXT);
       break;
   }

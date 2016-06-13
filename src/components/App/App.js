@@ -30,7 +30,6 @@ class App extends Component {
   }
 
   _onNext() {
-    console.log("123");
     this.forceUpdate();
   }
   
@@ -45,7 +44,7 @@ class App extends Component {
 
   getDialog() {
     if(this.state.dialogQueue.length != 0)
-      return <Dialog {...this.state.dialogQueue.shift()} />;
+      return <Dialog {this.state.dialogQueue[0]} />;
     else
       return null;
   }
