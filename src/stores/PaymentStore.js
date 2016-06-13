@@ -138,6 +138,7 @@ PaymentStore.dispatchToken = PaymentDispatcher.register(function (action) {
       }]});
       if(msg.orderId in _orders) {
         delete _orders[msg.orderId];
+        emitChange(OrderEventType.ORDER_CHANGED);
       }
       break;
     case ClientCmd.MESSAGE:
