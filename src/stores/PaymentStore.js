@@ -140,8 +140,8 @@ PaymentStore.dispatchToken = PaymentDispatcher.register(function (action) {
         delete _orders[msg.orderId];
       }
       break;
-    case ClientCmd.WARN:
-      DialogActionCreator.show({title: "警告", message: msg.msg, btns:[{
+    case ClientCmd.MESSAGE:
+      DialogActionCreator.show({title: msg.level, message: msg.msg, btns:[{
         name: "确定",
         onClick: () => {
           PaymentActionCreator.removeOrder(msg.orderId);

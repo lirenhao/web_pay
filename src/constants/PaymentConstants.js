@@ -31,7 +31,7 @@ export default {
     SELECT_ORDER: null,
     CANCEL_PAY: null,
     FAIL: null,
-    WARN: null
+    MESSAGE: null
   }),
   LocalStatus: keyMirror({
     UNREADY: null,
