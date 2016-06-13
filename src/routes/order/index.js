@@ -9,6 +9,6 @@ export default {
   path: '/order',
 
   async action() {
-    return <Order isMerchant={Payment.userProfile.terminalType} />;
+    return <Order isMerchant={Payment.userProfile.terminalType == "MERCHANT"} />;
   }
 }

@@ -19,7 +19,7 @@ function Order(props, context) {
       <OrderInfo />
       <MarketingInfo />
       <Billing />
-      <PayButton canCancel={props.terminalType == "MERCHANT"} onReqPay={orderId => {
+      <PayButton canCancel={props.isMerchant} onReqPay={orderId => {
         Payment.reqPayAuth(orderId);
       }} onPay={orderId => {
         history.push({

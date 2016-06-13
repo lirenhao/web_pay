@@ -1,0 +1,67 @@
+/**
+ * React Starter Kit (https://www.reactstarterkit.com/)
+ *
+ * Copyright © 2014-2016 Kriasoft, LLC. All rights reserved.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.txt file in the root directory of this source tree.
+ */
+
+:root {
+  /*
+   * Typography
+   * ======================================================================== */
+
+  --font-family-base: 'Segoe UI', 'HelveticaNeue-Light', sans-serif;
+
+  /*
+   * Layout
+   * ======================================================================== */
+
+  --max-content-width: 1000px;
+
+  /*
+   * Media queries breakpoints
+   * ======================================================================== */
+
+  --screen-xs-min: 480px;  /* Extra small screen / phone */
+  --screen-sm-min: 768px;  /* Small screen / tablet */
+  --screen-md-min: 992px;  /* Medium screen / desktop */
+  --screen-lg-min: 1200px; /* Large screen / wide desktop */
+}
+
+$white-base: hsl(0, 0, 1);
+$gray-darker: lighten(black, 13.5%);  /* #222 */
+$gray-dark: lighten(black, 25%);      /* #404040 */
+$gray: lighten(black, 33.5%);         /* #555 */
+$gray-light: lighten(black, 46.7%);   /* #777 */
+$gray-lighter: lighten(black, 93.5%); /* #eee */
+
+@mixin border-top-radius($radius) {
+  -webkit-border-top-left-radius: $radius;
+  -moz-border-top-left-radius: $radius;
+  -ms-border-top-left-radius: $radius;
+  border-top-left-radius: $radius;
+
+  -webkit-border-top-right-radius: $radius;
+  -moz-border-top-right-radius: $radius;
+  -ms-border-top-right-radius: $radius;
+  border-top-right-radius: $radius;
+}
+
+@mixin border-bottom-radius($radius) {
+  -webkit-border-bottom-left-radius: $radius;
+  -moz-border-bottom-left-radius: $radius;
+  -ms-border-bottom-left-radius: $radius;
+  border-bottom-left-radius: $radius;
+
+  -webkit-border-bottom-right-radius: $radius;
+  -moz-border-bottom-right-radius: $radius;
+  -ms-border-bottom-right-radius: $radius;
+  border-bottom-right-radius: $radius;
+}
+
+.part {
+  border: 1px solid $gray-light;
+  padding: 5px;
+}
