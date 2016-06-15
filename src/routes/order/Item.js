@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import Money from '../Money';
+import Money from './Money';
 
 var Item = React.createClass({
   render: function () {

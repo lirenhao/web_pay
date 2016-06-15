@@ -2,9 +2,9 @@
  * Created by cuita on 2016/5/1.
  */
 import React, {PropTypes} from 'react';
-import PaymentStore from '../../../stores/PaymentStore.js';
-import Const from '../../../constants/PaymentConstants.js';
-import PaymentActionCreator from '../../../actions/PaymentActionCreator';
+import PaymentStore from '../../stores/PaymentStore.js';
+import Const from '../../constants/PaymentConstants.js';
+import PaymentActionCreator from '../../actions/PaymentActionCreator';
 
 var LocalStatus = Const.LocalStatus;
 var OrderEventType = Const.OrderEventType;

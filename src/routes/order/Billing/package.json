@@ -1,9 +1,0 @@
-{
-  "name": "Billing",
-  "version": "0.0.1",
-  "private": true,
-  "main": "./Billing.js",
-  "dependencies": {
-    "react": "latest"
-  }
-}

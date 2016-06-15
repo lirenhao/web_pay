@@ -3,9 +3,9 @@
  */
 
 import React from 'react';
-import PaymentStore from '../../../stores/PaymentStore.js';
+import PaymentStore from '../../stores/PaymentStore.js';
 import Money from '../Money';
-import Const from '../../../constants/PaymentConstants.js';
+import Const from '../../constants/PaymentConstants.js';
 var OrderEventType = Const.OrderEventType;
 
 var Billing = React.createClass({

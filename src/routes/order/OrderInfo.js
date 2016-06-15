@@ -3,8 +3,8 @@
  */
 import React from 'react';
 import ProductList from './ItemList';
-import PaymentStore from '../../../stores/PaymentStore.js';
-import Const from '../../../constants/PaymentConstants.js';
+import PaymentStore from '../../stores/PaymentStore.js';
+import Const from '../../constants/PaymentConstants.js';
 
 var OrderEventType = Const.OrderEventType;
 

@@ -3,9 +3,9 @@
  */
 
 import React, {PropTypes} from 'react';
-import PaymentStore from '../../../stores/PaymentStore'
-import Const from '../../../constants/PaymentConstants.js';
-import PaymentActionCreator from '../../../actions/PaymentActionCreator';
+import PaymentStore from '../../stores/PaymentStore'
+import Const from '../../constants/PaymentConstants.js';
+import PaymentActionCreator from '../../actions/PaymentActionCreator';
 
 var OrderEventType = Const.OrderEventType;
 
