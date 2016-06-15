@@ -8,7 +8,6 @@ import Payment from '../../Payment/Payment';
 import history from '../../core/history';
 
 var OrderEventType = Const.OrderEventType;
-var orderList = [];
 
 var PayForm = React.createClass({
   propTypes: {
@@ -25,14 +24,13 @@ var PayForm = React.createClass({
   },
   componentDidMount: function () {
     document.title = "支付";
-
     PaymentStore.addChangeListener(OrderEventType.ORDER_CHANGED, this._onChange);
   },
   componentWillUnmount: function () {
     PaymentStore.removeChangeListener(OrderEventType.ORDER_CHANGED, this._onChange);
   },
   _onChange: function () {
-    if (PaymentStore.getOrderIds().filter(v => v.id == this.props.orderInfo.orderId).length != 0) {
+    if (PaymentStore.getOrderIds().filter(v => v.orderId == this.props.orderInfo.orderId).length == 0) {
       if (Payment.userProfile.terminalType == "USER") {
         history.push("/acqOrderId");
       }
