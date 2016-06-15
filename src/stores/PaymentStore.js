@@ -8,8 +8,6 @@ import EventEmitter from 'events';
 import assign from 'object-assign';
 import DialogActionCreator from '../actions/DialogActionCreator';
 import PaymentActionCreator from '../actions/PaymentActionCreator';
-import Payment from '../Payment/Payment';
-import history from '../core/history';
 
 var ClientCmd = Const.ClientCmd;
 var OrderEventType = Const.OrderEventType;
@@ -86,12 +84,6 @@ PaymentStore.dispatchToken = PaymentDispatcher.register(function (action) {
                     onClick: () => {
                         PaymentActionCreator.removeOrder(msg.orderId);
                         DialogActionCreator.close();
-                        if (msg.msg == "取消") {
-                            if (Payment.userProfile.terminalType == "MERCHANT")
-                                history.push("/acqOrder");
-                            else
-                                history.push("/acqOrderId");
-                        }
                     }
                 }]
             });
