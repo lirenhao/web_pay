@@ -4,7 +4,7 @@
 
 import React from 'react';
 import PaymentStore from '../../stores/PaymentStore.js';
-import Money from '../Money';
+import Money from './Money';
 import Const from '../../constants/PaymentConstants.js';
 var OrderEventType = Const.OrderEventType;
 
