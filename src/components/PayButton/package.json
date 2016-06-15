@@ -1,9 +1,0 @@
-{
-  "name": "PayButton",
-  "version": "0.0.1",
-  "private": true,
-  "main": "./PayButton.js",
-  "dependencies": {
-    "react": "latest"
-  }
-}

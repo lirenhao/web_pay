@@ -3,7 +3,7 @@
  */
 
 import React, {PropTypes} from 'react';
-import OrderCreateFrom from '../../components/OrderCreateFrom/OrderCreateFrom';
+import OrderCreateFrom from '../../routes/acquisitionOrder/OrderCreateFrom/OrderCreateFrom';
 import Payment from '../../Payment/Payment';
 import history from '../../core/history';
 

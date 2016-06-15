@@ -45,7 +45,7 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <div><label>用户名:</label><input ref={c => this.usernameInput = c}/></div>
+        <div><label>用户:</label><input ref={c => this.usernameInput = c}/></div>
         <div>
           <label>类型:</label>
           <input ref={c => this.merRadio = c} type="radio" name="terminalType" defaultValue="MERCHANT"

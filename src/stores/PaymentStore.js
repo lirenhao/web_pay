@@ -8,6 +8,8 @@ import EventEmitter from 'events';
 import assign from 'object-assign';
 import DialogActionCreator from '../actions/DialogActionCreator';
 import PaymentActionCreator from '../actions/PaymentActionCreator';
+import Payment from '../Payment/Payment';
+import history from '../core/history';
 
 var ClientCmd = Const.ClientCmd;
 var OrderEventType = Const.OrderEventType;
@@ -17,141 +19,155 @@ var _currentOrderId = null;
 var _orders = {};
 
 var PaymentStore = assign({}, EventEmitter.prototype, {
-  emitChange: function (eventType) {
-    this.emit(eventType);
-  },
-  addChangeListener: function (eventType, callback) {
-    this.on(eventType, callback);
-  },
-  removeChangeListener: function (eventType, callback) {
-    this.removeListener(eventType, callback);
-  },
-  getCurPaymentInfo: function () {
-    return _orders[_currentOrderId] == undefined ? {} : _orders[_currentOrderId];
-  },
-  getPaymentInfo: function (orderId) {
-    return _orders[orderId];
-  },
-  getPayStatus: function () {
-    return _orders[_currentOrderId] == undefined ? LocalStatus.UNREADY : _orders[_currentOrderId].payStatus;
-  },
-  getOrderIds: function () {
-    var ids = [];
-    var i = 0;
-    for (var id in _orders) {
-      if (_orders.hasOwnProperty(id)) {
-        ids[i] = {orderId: id, isCurrent: id == _currentOrderId};
-        i++;
-      }
+    emitChange: function (eventType) {
+        this.emit(eventType);
+    },
+    addChangeListener: function (eventType, callback) {
+        this.on(eventType, callback);
+    },
+    removeChangeListener: function (eventType, callback) {
+        this.removeListener(eventType, callback);
+    },
+    getCurPaymentInfo: function () {
+        return _orders[_currentOrderId] == undefined ? {} : _orders[_currentOrderId];
+    },
+    getPaymentInfo: function (orderId) {
+        return _orders[orderId];
+    },
+    getPayStatus: function () {
+        return _orders[_currentOrderId] == undefined ? LocalStatus.UNREADY : _orders[_currentOrderId].payStatus;
+    },
+    getOrderIds: function () {
+        var ids = [];
+        var i = 0;
+        for (var id in _orders) {
+            if (_orders.hasOwnProperty(id)) {
+                ids[i] = {orderId: id, isCurrent: id == _currentOrderId};
+                i++;
+            }
+        }
+        return ids;
+    },
+    getCurrentOrderId: function () {
+        return _currentOrderId;
     }
-    return ids;
-  },
-  getCurrentOrderId: function () {
-    return _currentOrderId;
-  }
 });
 
 PaymentStore.dispatchToken = PaymentDispatcher.register(function (action) {
-  var {eventType, ...msg} = action;
+    var {eventType, ...msg} = action;
 
-  var emitChange = PaymentStore.emitChange.bind(PaymentStore);
+    var emitChange = PaymentStore.emitChange.bind(PaymentStore);
 
-  switch (eventType) {
-    case ClientCmd.ORDER_ITEMS:
-      if (!_currentOrderId) {
-        _currentOrderId = msg.orderId;
-      }
-      _orders[msg.orderId] = {orderInfo: msg, payStatus: LocalStatus.UNREADY};
-      emitChange(OrderEventType.ORDER_CHANGED);
-      emitChange(OrderEventType.ITEMS_CHANGED);
-      break;
-    case ClientCmd.MARKETING:
-      if (!_orders[msg.orderId]) break;
-      _orders[msg.orderId].marketing = msg;
-      emitChange(OrderEventType.MARKETING_CHANGED);
-      _orders[msg.orderId].payStatus = LocalStatus.READY;
-      emitChange(OrderEventType.STATUS_CHANGED);
-      break;
-    case ClientCmd.PAY_COMPLETED:
-      if (!_orders[msg.orderId]) break;
-      _orders[_currentOrderId].payResult = msg;
-      emitChange(OrderEventType.ORDER_COMPLETED);
-      _orders[msg.orderId].payStatus = LocalStatus.PAY_COMPLETED;
-      emitChange(OrderEventType.STATUS_CHANGED);
-      DialogActionCreator.show({title: "订单完成", message: msg.msg, btns:[{
-        name: "确定",
-        onClick: () => {
-          PaymentActionCreator.removeOrder(msg.orderId);
-          DialogActionCreator.close();
-        }
-      }]});
-      break;
-    case ClientCmd.CANCEL_ORDER:
-      if (!_orders[msg.orderId]) break;
-      _orders[_currentOrderId].payResult = msg;
-      emitChange(OrderEventType.ORDER_COMPLETED);
-      _orders[msg.orderId].payStatus = LocalStatus.PAY_COMPLETED;
-      emitChange(OrderEventType.STATUS_CHANGED);
-      DialogActionCreator.show({title: "订单取消", message: "订单被商户取消", btns:[{
-        name: "确定",
-        onClick: () => {
-          PaymentActionCreator.removeOrder(msg.orderId);
-          DialogActionCreator.close();
-        }
-      }]});
-      break;
-    case ClientCmd.PAY_AUTH:
-      if(!_orders[msg.orderId]) break;
-      _orders[msg.orderId].payStatus = LocalStatus.PAY_AUTH;
-      emitChange(OrderEventType.STATUS_CHANGED);
-      break;
-    case ClientCmd.PAYING:
-      _orders[msg.orderId].payStatus = LocalStatus.WAIT_PAY_AUTH;
-      emitChange(OrderEventType.STATUS_CHANGED);
-      break;
-    case ClientCmd.REMOVE_COMPLETED_ORDER:
-      if(!_orders[msg.orderId])
-        break;
-      delete _orders[msg.orderId];
-      var keys = Object.keys(_orders);
-      if (keys.length == 0)
-        _currentOrderId = undefined;
-      else
-        _currentOrderId = keys[0];
-      emitChange(OrderEventType.ORDER_CHANGED);
-      break;
-    case ClientCmd.SELECT_ORDER:
-      _currentOrderId = msg.orderId;
-      emitChange(OrderEventType.ORDER_CHANGED);
-      break;
-    case ClientCmd.CANCEL_PAY:
-      _orders[msg.orderId].payStatus = LocalStatus.READY;
-      emitChange(OrderEventType.STATUS_CHANGED);
-      break;
-    case ClientCmd.FAIL:
-      DialogActionCreator.show({title: "错误", message: msg.msg, btns:[{
-        name: "确定",
-        onClick: () => {
-          PaymentActionCreator.removeOrder(msg.orderId);
-          DialogActionCreator.close();
-          if(msg.orderId in _orders) {
-            delete _orders[msg.orderId];
+    switch (eventType) {
+        case ClientCmd.ORDER_ITEMS:
+            if (!_currentOrderId) {
+                _currentOrderId = msg.orderId;
+            }
+            _orders[msg.orderId] = {orderInfo: msg, payStatus: LocalStatus.UNREADY};
             emitChange(OrderEventType.ORDER_CHANGED);
-          }
-        }
-      }]});
-      break;
-    case ClientCmd.MESSAGE:
-      DialogActionCreator.show({title: msg.level, message: msg.msg, btns:[{
-        name: "确定",
-        onClick: () => {
-          PaymentActionCreator.removeOrder(msg.orderId);
-          DialogActionCreator.close();
-        }
-      }]});
-      break;
-    default:
-      break;
-  }
+            emitChange(OrderEventType.ITEMS_CHANGED);
+            break;
+        case ClientCmd.MARKETING:
+            if (!_orders[msg.orderId]) break;
+            _orders[msg.orderId].marketing = msg;
+            emitChange(OrderEventType.MARKETING_CHANGED);
+            _orders[msg.orderId].payStatus = LocalStatus.READY;
+            emitChange(OrderEventType.STATUS_CHANGED);
+            break;
+        case ClientCmd.PAY_COMPLETED:
+            if (!_orders[msg.orderId]) break;
+            _orders[_currentOrderId].payResult = msg;
+            emitChange(OrderEventType.ORDER_COMPLETED);
+            _orders[msg.orderId].payStatus = LocalStatus.PAY_COMPLETED;
+            emitChange(OrderEventType.STATUS_CHANGED);
+            DialogActionCreator.show({
+                title: "订单完成", message: msg.msg, btns: [{
+                    name: "确定",
+                    onClick: () => {
+                        PaymentActionCreator.removeOrder(msg.orderId);
+                        DialogActionCreator.close();
+                        if (msg.msg == "取消") {
+                            if (Payment.userProfile.terminalType == "MERCHANT")
+                                history.push("/acqOrder");
+                            else
+                                history.push("/acqOrderId");
+                        }
+                    }
+                }]
+            });
+            break;
+        case ClientCmd.CANCEL_ORDER:
+            if (!_orders[msg.orderId]) break;
+            _orders[_currentOrderId].payResult = msg;
+            emitChange(OrderEventType.ORDER_COMPLETED);
+            _orders[msg.orderId].payStatus = LocalStatus.PAY_COMPLETED;
+            emitChange(OrderEventType.STATUS_CHANGED);
+            DialogActionCreator.show({
+                title: "订单取消", message: "订单被商户取消", btns: [{
+                    name: "确定",
+                    onClick: () => {
+                        PaymentActionCreator.removeOrder(msg.orderId);
+                        DialogActionCreator.close();
+                    }
+                }]
+            });
+            break;
+        case ClientCmd.PAY_AUTH:
+            if (!_orders[msg.orderId]) break;
+            _orders[msg.orderId].payStatus = LocalStatus.PAY_AUTH;
+            emitChange(OrderEventType.STATUS_CHANGED);
+            break;
+        case ClientCmd.PAYING:
+            _orders[msg.orderId].payStatus = LocalStatus.WAIT_PAY_AUTH;
+            emitChange(OrderEventType.STATUS_CHANGED);
+            break;
+        case ClientCmd.REMOVE_COMPLETED_ORDER:
+            if (!_orders[msg.orderId])
+                break;
+            delete _orders[msg.orderId];
+            var keys = Object.keys(_orders);
+            if (keys.length == 0)
+                _currentOrderId = undefined;
+            else
+                _currentOrderId = keys[0];
+            emitChange(OrderEventType.ORDER_CHANGED);
+            break;
+        case ClientCmd.SELECT_ORDER:
+            _currentOrderId = msg.orderId;
+            emitChange(OrderEventType.ORDER_CHANGED);
+            break;
+        case ClientCmd.CANCEL_PAY:
+            _orders[msg.orderId].payStatus = LocalStatus.READY;
+            emitChange(OrderEventType.STATUS_CHANGED);
+            break;
+        case ClientCmd.FAIL:
+            DialogActionCreator.show({
+                title: "错误", message: msg.msg, btns: [{
+                    name: "确定",
+                    onClick: () => {
+                        PaymentActionCreator.removeOrder(msg.orderId);
+                        DialogActionCreator.close();
+                        if (msg.orderId in _orders) {
+                            delete _orders[msg.orderId];
+                            emitChange(OrderEventType.ORDER_CHANGED);
+                        }
+                    }
+                }]
+            });
+            break;
+        case ClientCmd.MESSAGE:
+            DialogActionCreator.show({
+                title: msg.level, message: msg.msg, btns: [{
+                    name: "确定",
+                    onClick: () => {
+                        PaymentActionCreator.removeOrder(msg.orderId);
+                        DialogActionCreator.close();
+                    }
+                }]
+            });
+            break;
+        default:
+            break;
+    }
 });
 export default PaymentStore;

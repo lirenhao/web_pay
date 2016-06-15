@@ -1,9 +1,0 @@
-{
-  "name": "Money",
-  "version": "0.0.1",
-  "private": true,
-  "main": "./Money.js",
-  "dependencies": {
-    "react": "latest"
-  }
-}

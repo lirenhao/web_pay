@@ -1,9 +1,0 @@
-{
-  "name": "OrderInfo",
-  "version": "0.0.1",
-  "private": true,
-  "main": "./OrderInfo.js",
-  "dependencies": {
-    "react": "latest"
-  }
-}
