@@ -2,7 +2,7 @@
  * Created by cuitao-pc on 16/5/25.
  */
 import React, {PropTypes} from 'react';
-import JoinOrder from '../../routes/acquisitionOrderId/JoinOrder/JoinOrder';
+import JoinOrder from './JoinOrder';
 import Payment from '../../Payment';
 import history from '../../core/history';
 

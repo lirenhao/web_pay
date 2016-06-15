@@ -3,8 +3,8 @@
  */
 import React, {PropTypes} from 'react';
 import OrderItem from './OrderItem';
-import PaymentStore from '../../../stores/PaymentStore.js';
-import Const from '../../../constants/PaymentConstants.js';
+import PaymentStore from '../../stores/PaymentStore.js';
+import Const from '../../constants/PaymentConstants.js';
 
 var OrderEventType = Const.OrderEventType;
 
