@@ -32,7 +32,7 @@ var PayForm = React.createClass({
     PaymentStore.removeChangeListener(OrderEventType.ORDER_CHANGED, this._onChange);
   },
   _onChange: function () {
-    if (PaymentStore.getOrderIds().indexOf(this.props.orderInfo.orderId) == -1) {
+    if (PaymentStore.getOrderIds().filter(v => v.id == this.props.orderInfo.orderId).length != 0) {
       if (Payment.userProfile.terminalType == "USER") {
         history.push("/acqOrderId");
       }
