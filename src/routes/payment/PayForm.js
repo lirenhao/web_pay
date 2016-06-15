@@ -82,7 +82,7 @@ var PayForm = React.createClass({
                 <input value="取消支付" type="button" onClick={this.props.onCancel}/>
             </div>
         );
-    },
+    }
 });
 
 export default PayForm;

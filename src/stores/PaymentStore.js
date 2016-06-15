@@ -162,4 +162,5 @@ PaymentStore.dispatchToken = PaymentDispatcher.register(function (action) {
             break;
     }
 });
+
 export default PaymentStore;
