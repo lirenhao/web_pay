@@ -65,17 +65,21 @@ function getJsonFromUrl() {
   return result;
 }
 
+const container = document.getElementById('app');
+
+function procLocation(location) {
+  match(routes, {
+    path: location.pathname,
+    query: location.query,
+    context,
+    render: render.bind(undefined, container)
+  }).catch(err => console.error(err));
+}
+
 function run() {
-  const container = document.getElementById('app');
   FastClick.attach(document.body);
-  const removeHistoryListener = history.listen(location => {
-    match(routes, {
-      path: location.pathname,
-      query: location.query,
-      context,
-      render: render.bind(undefined, container)
-    }).catch(err => console.error(err));
-  });
+  const removeHistoryListener = history.listen(procLocation);
+  procLocation(history.getCurrentLocation());
   addEventListener(window, 'pagehide', () => {
     removeHistoryListener();
   });
