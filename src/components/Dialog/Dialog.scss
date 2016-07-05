@@ -3,42 +3,62 @@
 .model {
   position: fixed;
   display: flex;
-  z-index: 1;
-  left: 0;
+  z-index: 1050;
   top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
   background-color: rgba(black, 0.8);
   align-items: center;
   justify-content: center;
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
 }
 
 .model_content {
-  background-color: white;
-  @include border-top-radius(10px);
-  @include border-bottom-radius(5px);
-  border: 1px solid black;
-  //background-color: #0000AA;
-  h1 {
-
-    @include border-top-radius(8px);
-    background-color: $gray;
-    margin-top: 0;
-    padding-left: 10px;
-    color: white;
-  }
+  position: relative;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, .2);
+  border-radius: 6px;
+  outline: 0;
+  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+  box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+  min-width: 240px;
 }
 
 $btn_color: $gray-light;
 
 .btn {
-  color: white;
-  border: 1px solid darken($btn_color, 10%);
-  background: $btn_color;
-  transform: rotate(30deg);
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #fff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
 }
 
 .btn:hover {
-  background-color: lighten($btn_color, 10%);
+  color: #fff;
+  background-color: #449d44;
+  border-color: #398439;
 }

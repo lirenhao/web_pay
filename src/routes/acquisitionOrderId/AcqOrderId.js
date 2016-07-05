@@ -9,7 +9,7 @@ import history from '../../core/history';
 function AcqOrderId(props, context) {
   context.setTitle("扫描订单");
   return (
-    <div>
+    <div style={{"marginTop": "10px"}}>
       <JoinOrder joinOrder={(id) => {
       Payment.joinOrder(id);
       history.push("/order");

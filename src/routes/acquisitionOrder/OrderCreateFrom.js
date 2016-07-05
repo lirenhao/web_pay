@@ -5,6 +5,9 @@ import React, {PropTypes} from 'react';
 import OrderItem from './OrderItem';
 import PaymentStore from '../../stores/PaymentStore.js';
 import Const from '../../constants/PaymentConstants.js';
+import s from './AcqOrder.scss';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import {Nav,Button,ButtonGroup} from 'react-bootstrap';
 
 var OrderEventType = Const.OrderEventType;
 
@@ -54,33 +57,51 @@ var OrderCreateFrom = React.createClass({
         this.forceUpdate();
       }}
     />));
-    var getOrdersBtn = () => {
-      if (PaymentStore.getOrderIds().length != 0) {
-        return <input type="button" value={"已有" + PaymentStore.getOrderIds().length + "个订单"}
-                      onClick={e => this.props.onEntryOrder()}/>
-      } else {
-        return null;
-      }
-    };
     var getItems = () => {
       return this.state.items.filter((r) => r.name.trim() != "" && r.price != "" && r.price != 0 && r.quantity != "" && r.quantity != 0);
     };
+		let hidden = "";
+		hidden += PaymentStore.getOrderIds().length != 0 ? "" : "hidden";
+		let btnRadius = "";
+		btnRadius += PaymentStore.getOrderIds().length != 0 ? "" : s.btnradius;
+
     return (
       <div>
-        {children}
-        <div>
-          <input type="button" value="添加"
-                 onClick={() => this.setState({items: [...this.state.items, {name: "", price: "", quantity: ""}]})}/>
-          <input type="button" value="提交" onClick={() => {
-          let items = getItems();
-          if(items.length > 0)
-            this.props.createOrder(items)
-          }} disabled={getItems().length == 0} />
-          {getOrdersBtn()}
-        </div>
+				<div className={s.mgtb}>
+					{children}
+				</div>
+				<Nav className="navbar-fixed-bottom container">
+					<div className={s.navbg}>
+						<ButtonGroup justified>
+							<Button
+								href="javascript:void(0);"
+								onClick={() => this.setState({
+                       items: [...this.state.items, {name: "", price: "", quantity: ""}]})}>
+								添加
+							</Button>
+							<Button
+								bsStyle="success"
+								className={btnRadius}
+								href="javascript:void(0);"
+								onClick={() => {
+                          let items = getItems();
+                          if(items.length > 0)
+                          this.props.createOrder(items)}}
+								disabled={getItems().length == 0}>
+								提交</Button>
+							<Button
+								className={hidden}
+								bsStyle="info"
+								href="javascript:void(0);"
+								onClick={e => this.props.onEntryOrder()}>
+								<span className="badge">{PaymentStore.getOrderIds().length}</span>&nbsp;个待支付
+							</Button>
+						</ButtonGroup>
+					</div>
+        </Nav>
       </div>
     )
   }
 });
 
-export default OrderCreateFrom;
+export default withStyles(s)(OrderCreateFrom);

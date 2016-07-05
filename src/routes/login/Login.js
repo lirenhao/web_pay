@@ -5,6 +5,10 @@ import React, {PropTypes, Component} from 'react';
 import history from '../../core/history';
 import Payment from '../../Payment/Payment';
 import Const from '../../constants/PaymentConstants';
+import {FormGroup, InputGroup, Glyphicon, Button, ButtonGroup} from 'react-bootstrap';
+import s from './Login.scss';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+
 const TerminalType = Const.TerminalType;
 
 // function Login({onLogin}, context) {
@@ -32,35 +36,54 @@ const TerminalType = Const.TerminalType;
 //   );
 // }
 
-
 class Login extends Component {
-  static contextTypes = {
-    setTitle: PropTypes.func.isRequired
-  };
+	static contextTypes = {
+		setTitle: PropTypes.func.isRequired
+	};
 
-  componentWillMount() {
-    this.context.setTitle("登录");
-  }
+	componentWillMount() {
+		this.context.setTitle("登录");
+	}
 
-  render() {
-    return (
-      <div>
-        <div><label>用户:</label><input ref={c => this.usernameInput = c}/></div>
-        <div>
-          <label>类型:</label>
-          <input ref={c => this.merRadio = c} type="radio" name="terminalType" defaultValue="MERCHANT"
-                 defaultChecked={true}/> 商户
-          <input type="radio" name="terminalType" defaultValue="USER"/> 用户
-        </div>
-        <div>
-          <input type="button" onClick={e => {
+	render() {
+		return (
+			<div className={s.myContainer}>
+				<div className={s.login}></div>
+				<FormGroup bsSize="lg">
+					<InputGroup>
+						<InputGroup.Addon>
+							<Glyphicon glyph="user"/>
+						</InputGroup.Addon>
+						<label className="sr-only" htmlFor="loginInputID">id</label>
+						<input
+							id="loginInputID"
+							className="form-control"
+							type="text"
+							placeholder="请输入用户名"
+							ref={c => this.usernameInput = c}/>
+					</InputGroup>
+					<div className={s.btn}>
+						<ButtonGroup aria-label="登录类型" data-toggle="buttons" justified>
+							<label className="btn btn-default active">
+								<input ref={c => this.merRadio = c} type="radio" name="terminalType" defaultValue="MERCHANT"
+											 defaultChecked={true}/> 商户端
+							</label>
+							<label className="btn btn-default">
+								<input type="radio" name="terminalType" defaultValue="USER"/> 用户端
+							</label>
+						</ButtonGroup>
+					</div>
+				</FormGroup>
+				<div className={s.btn}>
+					<Button bsStyle="info" onClick={e => {
           if(this.merRadio.checked) history.push("/acqOrder"); else history.push("/acqOrderId");
           Payment.setUserProfile({id: this.usernameInput.value, terminalType: this.merRadio.checked ? TerminalType.MERCHANT : TerminalType.USER});
           Payment.clientSignIn();
-          }} value="登录"/>
-        </div>
-      </div>
-    );
-  }
+          }}
+									block>登&nbsp;&nbsp;&nbsp;&nbsp;录</Button>
+				</div>
+			</div>
+		);
+	}
 }
-export default Login;
+export default withStyles(s)(Login);

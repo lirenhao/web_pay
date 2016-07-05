@@ -9,22 +9,28 @@ import Billing from './Billing';
 import PayButton from './PayButton';
 import Payment from '../../Payment';
 import history from '../../core/history';
+import s from './Order.scss';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
 
 function Order(props, context) {
   context.setTitle("订单");
 
   return (
     <div>
-      <OrderSelector onEmptyOrder={ () => {
+      <div className={s.mgtb}>
+        <OrderSelector onEmptyOrder={ () => {
       if(props.isMerchant)
         history.push("/acqOrder");
       else
         history.push("/acqOrderId");
       }}/>
-      <OrderInfo />
-      <MarketingInfo />
-      <Billing />
-      <PayButton canCancel={props.isMerchant} onReqPay={orderId => {
+        <OrderInfo />
+        <MarketingInfo />
+        <Billing />
+      </div>
+      <div className="navbar-fixed-bottom container">
+        <div className={s.navbg}>
+          <PayButton canCancel={props.isMerchant} onReqPay={orderId => {
         Payment.reqPayAuth(orderId);
       }} onPay={orderId => {
         history.push({
@@ -34,9 +40,12 @@ function Order(props, context) {
       }} onCancel={orderId => {
         Payment.cancelOrder(orderId);
       }}/>
+        </div>
+      </div>
     </div>
+
   )
 }
 Order.propTypes = {isMerchant: PropTypes.bool.isRequired};
 Order.contextTypes = {setTitle: PropTypes.func.isRequired};
-export default Order;
+export default withStyles(s)(Order);

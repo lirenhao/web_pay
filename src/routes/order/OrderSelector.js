@@ -32,14 +32,15 @@ var OrderSelector = React.createClass({
   },
   render: function () {
     var idComponents = this.state.ids.map(idInfo =>
-      <a href="javascript:void(0)" onClick={this.handleClick.bind(null, idInfo.orderId)} key={idInfo.orderId}>
-        {idInfo.orderId}
-      </a>
+      <li role="presentation" key={idInfo.orderId}>
+        <a href="javascript:void(0)" onClick={this.handleClick.bind(null, idInfo.orderId)}>
+          {idInfo.orderId}</a>
+      </li>
     );
     return (
-      <div>
+      <ul className="nav nav-tabs">
         {idComponents}
-      </div>
+      </ul>
     )
   }
 });

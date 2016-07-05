@@ -6,6 +6,9 @@ import PaymentStore from '../../stores/PaymentStore.js';
 import Const from '../../constants/PaymentConstants.js';
 import Payment from '../../Payment/Payment';
 import history from '../../core/history';
+import s from './PayForm.scss';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import {Table,ButtonGroup,Button} from 'react-bootstrap';
 
 var OrderEventType = Const.OrderEventType;
 
@@ -40,41 +43,69 @@ var PayForm = React.createClass({
   },
   getOrderInfoComponent: function (orderInfo) {
     return (
-      <div>
-        <h1>{orderInfo.orderId}</h1>
-        <h2>{orderInfo.orderAmt}</h2>
-        {this.getOrderItemComponents(orderInfo.items)}
+			<div className={s.mgtb}>
+				<div className={s.mgb}>
+					<span className={s.mgr}><b>订单号:</b>{orderInfo.orderId}</span>
+					<span><b>流水号:</b>{orderInfo.orderAmt}</span>
+				</div>
+				<div className="panel panel-info">
+					{this.getOrderItemComponents(orderInfo.items)}
+				</div>
       </div>
     );
   },
   getOrderItemComponents: function (items) {
     return (
-      <ol>
+      <Table striped>
+        <thead>
+        <tr className="bg-info ">
+          <th>商品名称</th>
+          <th>单价</th>
+          <th>数量</th>
+        </tr>
+        </thead>
+        <tbody>
         {items.map(({name, price, quantity}, i) =>
-          <li key={i}>{name}
-            <ul>
-              <li>{price}</li>
-              <li>{quantity}</li>
-            </ul>
-          </li>
+          <tr key={i}>
+            <th>{name}</th>
+            <td>{price}</td>
+            <td>{quantity}</td>
+          </tr>
         )}
-      </ol>
+        </tbody>
+      </Table>
     );
   },
   render: function () {
     var selector;
     return (
-      <div>
-        {this.getOrderInfoComponent(this.props.orderInfo)}
-        <select ref={c => selector = c}>
-          <option value="0">成功</option>
-          <option value="1">失败</option>
-        </select>
-        <input value="确定" type="button" onClick={e => this.props.onPayCompleted(selector.value)}/>
-        <input value="取消支付" type="button" onClick={this.props.onCancel}/>
-      </div>
+			<div>
+				{this.getOrderInfoComponent(this.props.orderInfo)}
+				<div className="navbar-fixed-bottom container">
+					<div className={s.navbg}>
+						<ButtonGroup justified>
+							<ButtonGroup>
+								<select className={"btn btn-default "+s.selectH} ref={c => selector = c}>
+									<option value="0">成功</option>
+									<option value="1">失败</option>
+								</select>
+							</ButtonGroup>
+							<ButtonGroup>
+								<Button bsStyle="success"
+												onClick={e => this.props.onPayCompleted(selector.value)}>确定
+								</Button>
+							</ButtonGroup>
+							<ButtonGroup>
+								<Button bsStyle="danger"
+												onClick={this.props.onCancel}>取消支付
+								</Button>
+							</ButtonGroup>
+						</ButtonGroup>
+					</div>
+				</div>
+			</div>
     );
   }
 });
 
-export default PayForm;
+export default withStyles(s)(PayForm);

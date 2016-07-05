@@ -27,14 +27,18 @@ var OrderInfo = React.createClass({
     if (this.state.orderInfo) {
       return (
         <div>
-          <h1>{this.state.orderInfo.orderId}</h1>
-          <h2>订单信息</h2>
-          <ProductList items={this.state.orderInfo.items || []}/>
+          <h4><span className="label label-info">{this.state.orderInfo.orderId}</span></h4>
+          <div className="panel panel-info panel-sm">
+            <div className="panel-heading">
+              <label>订单信息</label>
+            </div>
+            <ProductList items={this.state.orderInfo.items || []}/>
+          </div>
         </div>
       )
-    } else {
-      return (<div>正在加载订单信息...</div>)
     }
+    else
+      return (<div  role="alert">正在加载订单信息...</div>);
   }
 });
 

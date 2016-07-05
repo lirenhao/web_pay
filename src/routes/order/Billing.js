@@ -6,6 +6,9 @@ import React from 'react';
 import PaymentStore from '../../stores/PaymentStore.js';
 import Money from './Money';
 import Const from '../../constants/PaymentConstants.js';
+import {Table,Glyphicon} from 'react-bootstrap';
+import s from './Order.scss';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
 var OrderEventType = Const.OrderEventType;
 
 var Billing = React.createClass({
@@ -35,26 +38,32 @@ var Billing = React.createClass({
     if (this.state.orderInfo && this.state.marketing) {
       let totalAmt = this.state.orderInfo.items.reduce((amt, curP) => amt + curP.price * curP.quantity, 0);
       return (
-        <div>
-          <h2>结算</h2>
-          <table>
-            <tbody>
-            <tr>
-              <td>总价</td>
-              <td><Money>{totalAmt}</Money></td>
-            </tr>
-            <tr>
-              <td>优惠</td>
-              <td><Money>{-this.state.marketing.amt}</Money></td>
-            </tr>
-            </tbody>
-            <tfoot>
-            <tr>
-              <td>结算</td>
-              <td><Money>{totalAmt - this.state.marketing.amt}</Money></td>
-            </tr>
-            </tfoot>
-          </table>
+        <div className={s.mybg}>
+          <p className={s.topcol}>
+            <Glyphicon glyph="yen" aria-hidden="true"/>
+            &nbsp;结算
+          </p>
+          <div className={s.fcolor}>
+            <Table condensed>
+              <tbody>
+              <tr>
+                <td className={s.padin}>总价</td>
+                <td className={s.textRed+" text-right " +s.padin}><Money>{totalAmt}</Money>&nbsp; &nbsp;</td>
+              </tr>
+              <tr>
+                <td className={s.padin}>优惠</td>
+                <td className={s.textRed+" text-right " +s.padin}>
+                  <Money>{-this.state.marketing.amt}</Money>&nbsp; &nbsp;</td>
+              </tr>
+              <tr>
+                <td className={s.padin}>结算</td>
+                <td className={s.textRed+" text-right " +s.padin}>
+                  <Money>{totalAmt - this.state.marketing.amt}</Money>&nbsp; &nbsp;</td>
+              </tr>
+              </tbody>
+            </Table>
+            <p className={s.myhr}/>
+          </div>
         </div>
       );
     } else {
@@ -63,4 +72,4 @@ var Billing = React.createClass({
   }
 });
 
-export default Billing;
+export default withStyles(s)(Billing);

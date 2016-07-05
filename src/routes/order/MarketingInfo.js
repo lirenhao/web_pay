@@ -6,6 +6,9 @@ import React from 'react';
 import PaymentStore from '../../stores/PaymentStore.js';
 import Money from './Money';
 import Const from '../../constants/PaymentConstants.js';
+import s from './Order.scss';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import {Table,Glyphicon} from 'react-bootstrap';
 var OrderEventType = Const.OrderEventType;
 
 var MarketingInfo = React.createClass({
@@ -26,17 +29,30 @@ var MarketingInfo = React.createClass({
   render: function () {
     if (this.state.marketing) {
       return (
-        <div>
-          <h2>优惠信息</h2>
-          <label>优惠金额:</label><Money>{this.state.marketing.amt}</Money>
-          <br />
-          <label>优惠信息:</label><span>{this.state.marketing.msg}</span>
+        <div className={s.mybg}>
+          <p className={s.topcol}>
+            <Glyphicon glyph="tag" aria-hidden="true"> </Glyphicon>
+            &nbsp;优惠信息
+          </p>
+          <Table className={s.fcolor} condensed>
+            <tbody>
+            <tr>
+              <td className={s.padin}>优惠金额</td>
+              <td className={"text-right " +s.padin}><Money>{this.state.marketing.amt}</Money>&nbsp; &nbsp;</td>
+            </tr>
+            <tr>
+              <td className={s.padin}>优惠信息</td>
+              <td className={"text-right " +s.padin}><span>{this.state.marketing.msg}</span>&nbsp; &nbsp;</td>
+            </tr>
+            </tbody>
+          </Table>
+          <p className={s.myhr}/>
         </div>
       );
     } else {
-      return (<div>正在加载优惠信息....</div>);
+      return (<div role="alert">正在加载优惠信息....</div>);
     }
   }
 });
 
-export default MarketingInfo;
+export default withStyles(s)(MarketingInfo);

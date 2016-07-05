@@ -6,6 +6,7 @@ import React, {PropTypes} from 'react';
 import OrderCreateFrom from './OrderCreateFrom';
 import Payment from '../../Payment/Payment';
 import history from '../../core/history';
+import {Form} from 'react-bootstrap';
 
 function AcqOrder(props, context) {
   context.setTitle("创建订单");
@@ -27,13 +28,14 @@ function AcqOrder(props, context) {
     }
   ];
   return (
-    <div>
-      <OrderCreateFrom items={items} createOrder={items => {
-      Payment.createOrder({items: items});
-
-      history.push("/order");
-      }} onEntryOrder={() => history.push("/order") } />
-    </div>
+    <Form inline>
+      <OrderCreateFrom
+        items={items}
+        createOrder={items => {
+          Payment.createOrder({items: items});
+          history.push("/order");}}
+        onEntryOrder={() => history.push("/order") }/>
+    </Form>
   );
 }
 

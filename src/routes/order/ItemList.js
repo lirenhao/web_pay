@@ -4,24 +4,28 @@
 
 import React from 'react';
 import Product from './Item';
+import {Table} from 'react-bootstrap';
+import s from './Order.scss';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+
 
 var ItemList = React.createClass({
   render: function () {
     let rows = this.props.items.map( p => (<Product key={p.name} {...p} />));
 
     return (
-      <table>
+      <Table striped>
         <thead>
         <tr>
-          <th>名称</th>
-          <th>价格</th>
-          <th>数量</th>
+          <th className={s.thColor}>名称</th>
+          <th className={s.thColor}>价格</th>
+          <th className={s.thColor}>数量</th>
         </tr>
         </thead>
         <tbody>{rows}</tbody>
-      </table>
+      </Table>
     );
   }
 });
 
-export default ItemList;
+export default withStyles(s)(ItemList);
