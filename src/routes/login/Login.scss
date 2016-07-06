@@ -3,6 +3,11 @@
     max-width: 300px;
   }
 }
+@media (max-width: 350px) {
+  .myContainer{
+    max-width: 270px;
+  }
+}
 @media (min-width:768px)and(max-width: 992px) {
   .myContainer{
     max-width: 400px;
@@ -15,9 +20,15 @@
 }
 .myContainer{
   margin: 0 auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
-.login{
-  margin-top: 150px;
+.loginD{
+  position: absolute;
+  bottom: 45%;
 }
 .btn{
   margin-top: 25px;

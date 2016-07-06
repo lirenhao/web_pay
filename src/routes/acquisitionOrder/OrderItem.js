@@ -22,10 +22,10 @@ var OrderItem = React.createClass({
 	render: function () {
 		return (
 			<Form inline className={s.mgt}>
-				<FormGroup controlId="productName"
+				<FormGroup className={s.col4} controlId="productName"
 									 validationState={this.getValidationName()}
 				>
-					<InputGroup>
+					<InputGroup className={s.top0+" "+s.widthP}>
 						<InputGroup.Addon className={s.noBLR}>
 							<Glyphicon glyph="shopping-cart"/>
 						</InputGroup.Addon>
@@ -37,9 +37,9 @@ var OrderItem = React.createClass({
 						<FormControl.Feedback/>
 					</InputGroup>
 				</FormGroup>
-				<FormGroup controlId="productPrice"
+				<FormGroup className={s.col4} controlId="productPrice"
 									 validationState={this.getValidationPrice()}>
-					<InputGroup className={s.top1}>
+					<InputGroup className={s.top1+" "+s.widthP}>
 						<InputGroup.Addon className={s.noALR + " " + s.inputRadius}>
 							<Glyphicon glyph="yen"/>
 						</InputGroup.Addon>
@@ -51,10 +51,10 @@ var OrderItem = React.createClass({
 						<FormControl.Feedback/>
 					</InputGroup>
 				</FormGroup>
-				<FormGroup controlId="productCounts"
+				<FormGroup className={s.col4+" "+s.padding30} controlId="productCounts"
 									 validationState={this.getValidationPrice()}>
-					<InputGroup className={s.top2}>
-						<InputGroup.Addon className={s.noALR + " " + s.inputRadius}>
+					<InputGroup className={s.top2+" "+s.widthP}>
+						<InputGroup.Addon className={s.noTLR + " " + s.inputRadius}>
 							<Glyphicon glyph="tags"/>
 						</InputGroup.Addon>
 						<ControlLabel className="sr-only ">productCounts</ControlLabel>

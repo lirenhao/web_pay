@@ -70,8 +70,8 @@ var OrderCreateFrom = React.createClass({
 				<div className={"row " + s.mgtb}>
 					{children}
 				</div>
-				<Nav className="navbar-fixed-bottom container">
-					<div className={s.navbg}>
+				<Nav className={"navbar-fixed-bottom "+s.bg}>
+					<div className={"container "+s.navbg}>
 						<ButtonGroup justified>
 							<Button
 								href="javascript:void(0);"
