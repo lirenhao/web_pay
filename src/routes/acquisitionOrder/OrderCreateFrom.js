@@ -67,7 +67,7 @@ var OrderCreateFrom = React.createClass({
 
     return (
       <div>
-				<div className={s.mgtb}>
+				<div className={"row " + s.mgtb}>
 					{children}
 				</div>
 				<Nav className="navbar-fixed-bottom container">
