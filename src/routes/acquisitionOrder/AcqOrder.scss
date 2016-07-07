@@ -1,130 +1,136 @@
 .bg{
-  background-color: #fff !important;
+  background-color: #fff !important;//底部按钮背景色
 }
 .navbg {
   padding-top: 10px;
   padding-bottom: 20px;
-  background-color: #fff;
   position: relative;
   z-index: 0;
-}
+}//底部按钮位置
 
 .mgtb {
   margin-top: 10px;
   margin-bottom: 70px;
-}
+}//所有商品栏容器上下边距
 
 .mgt {
   margin-top: 4px;
   position: relative;
-}
+}//单个商品栏上边距
 
-.width {
-  width: 100% !important;
-}
-
+//小于992px
 @media (max-width: 992px){
   .btnRemove{
     position: absolute;
     right: 15px !important;
-  }
+  }//删除按钮位置
 }
+//768px-992px之间
 @media (max-width: 992px)and(min-width: 768px) {
   .divRemove{
     position: relative;
-  }
+  }//删除按钮的容器位置
   .btnRemove{
     position: absolute;
     right: -30px !important;
     top: -17px;
     z-index: 100;
-  }
+  }//删除按钮位置
   .widthP{
     width: 100%;
-  }
+  }//input的容器
   .col4{
     margin: 0 !important;
-  }
+    width:33.333333%;
+    position: relative;
+  }//商品的每个栏目
   .padding30{
     position: relative;
     left: -1px;
     padding-right: 23px;
-  }
+  }//单价栏目的位置
+  .mgt{
+    padding-right: 45px;
+  }//商品栏位置
   .navbg{
     padding-left: 0 !important;
-  }
+  }//底部按钮位置偏移
 }
+//大于992px
 @media (min-width: 992px) {
   .noRightBorderR{
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-  }
+  }//去掉元素右侧圆角
   .divRemove{
     position: absolute;
     right: 16px;
     top: 17px;
-  }
+  }//删除按钮的容器位置
   .btnRemove{
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     position: absolute;
-    right: 0;
+    right: 0 !important;
     top: -17px;
     z-index: 10;
-  }
+  }//删除按钮位置
   .mgt{
     padding-right: 15px;
-  }
+  }//商品栏位置
   .col4{
     width:33.333333%;
     position: relative;
-  }
+  }//商品的每个栏目
   .padding30{
     position: relative;
     left: -1px;
     padding-right: 53px;
-  }
+  }//单价栏目的位置
   .widthP{
     width: 100%;
-  }
+  }//input的容器
   .navbg{
     padding-left: 0 !important;
-  }
+  }//底部按钮位置偏移
 }
+//小于992px
 @media (max-width: 992px){
   .btnRemove{
     border-radius: 0 4px 4px 0;
-  }
+  }//删除按钮位置
   .col4{
     margin-left: 15px;
     margin-right: 50px;
     margin-bottom: 0 !important;
-  }
+  }//商品的每个栏目
 }
+//大于768px
 @media (min-width: 768px){
   .mgt{
     margin-bottom: 14px !important;
     width: 100% !important;
     position: relative;
-  }
+  }//商品栏位置
   .inputRadius{
     border-radius: 0 !important;
-  }
+  }//input框去掉圆角
   .padding30{
     position: relative;
     left: -1px;
-  }
+  }//单价栏目的位置
   .top0{
     position: relative;
     left: 1px !important;
-  }
+  }//第一个input的容器位置微调
 }
+//小于767px
 @media (max-width: 767px){
   .divRemove{
     position: absolute;
     right: 0;
     top: 0;
-  }
+  }//删除按钮的容器位置
   .btnRemove{
     position: absolute;
     right: 0;
@@ -133,40 +139,33 @@
     z-index: 100;
     word-break: break-all;
     white-space: pre-wrap;
-  }
+  }//删除按钮位置
   .noBLR{
     border-bottom-left-radius: 0;
-  }
+  }//图标去掉左下圆角
   .noTLR{
     border-top-left-radius: 0;
-  }
+  }//图标去掉左上圆角
   .noALR{
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
-  }
+  }//图标去掉左侧圆角
   .top1{
     position: relative;
     top: -1px;
-  }
+  }//第二个input的容器位置微调
   .top2{
     position: relative;
     top: -2px;
-  }
+  }//第三个input的容器位置微调
   .navbg{
     padding-left: 15px !important;
-  }
+  }//底部按钮位置
 }
 .btnradius {
   border-radius: 0 5px 5px 0 !important;
-}
-.row{
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-}
-.col{
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-}
+}//按钮去掉左侧圆角
+
 .btnRemove{
   background-color: #f9f9f9;
 }
