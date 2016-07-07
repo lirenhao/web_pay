@@ -19,7 +19,7 @@ var OrderItem = React.createClass({
 		else if (length == 0) return 'warning';
 		else return 'error';
 	},
-	getValidationQuantity:function(){
+	getValidationQuantity: function () {
 		let length = this.props.quantity;
 		if (length) return 'success';
 		else if (length == 0) return 'warning';
