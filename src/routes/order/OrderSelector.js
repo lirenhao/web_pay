@@ -39,7 +39,7 @@ var OrderSelector = React.createClass({
       </li>
     );
     return (
-      <Nav bsStyle="tabs" justified>
+      <Nav bsStyle="tabs">
         {idComponents}
       </Nav>
     )
