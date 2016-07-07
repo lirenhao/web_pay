@@ -59,15 +59,15 @@ var PayForm = React.createClass({
 			<Table striped>
 				<thead>
 				<tr className="bg-info ">
-					<th>商品名称</th>
-					<th>单价</th>
-					<th>数量</th>
+					<th className={s.thColor}>商品名称</th>
+					<th className={s.thColor}>单价</th>
+					<th className={s.thColor}>数量</th>
 				</tr>
 				</thead>
 				<tbody>
 				{items.map(({name, price, quantity}, i) =>
 					<tr key={i}>
-						<th>{name}</th>
+						<td>{name}</td>
 						<td>{price}</td>
 						<td>{quantity}</td>
 					</tr>

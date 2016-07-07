@@ -27,7 +27,7 @@ var OrderInfo = React.createClass({
     if (this.state.orderInfo) {
       return (
         <div>
-          <h4><span className="label label-info">{this.state.orderInfo.orderId}</span></h4>
+          <h4><span className="label label-info"><span className="glyphicon glyphicon-pushpin"></span> {this.state.orderInfo.orderId}</span></h4>
           <div className="panel panel-info panel-sm">
             <div className="panel-heading">
               <label>订单信息</label>
