@@ -19,6 +19,12 @@ var OrderItem = React.createClass({
 		else if (length == 0) return 'warning';
 		else return 'error';
 	},
+	getValidationQuantity:function(){
+		let length = this.props.quantity;
+		if (length) return 'success';
+		else if (length == 0) return 'warning';
+		else return 'error';
+	},
 	render: function () {
 		return (
 			<Form inline className={s.mgt}>
@@ -52,7 +58,7 @@ var OrderItem = React.createClass({
 					</InputGroup>
 				</FormGroup>
 				<FormGroup className={s.col4+" "+s.padding30} controlId="productCounts"
-									 validationState={this.getValidationPrice()}>
+									 validationState={this.getValidationQuantity()}>
 					<InputGroup className={s.top2+" "+s.widthP}>
 						<InputGroup.Addon className={s.noTLR + " " + s.inputRadius}>
 							<Glyphicon glyph="tags"/>
