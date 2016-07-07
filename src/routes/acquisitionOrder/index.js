@@ -4,9 +4,9 @@
 import React from 'react';
 import AcqOrder from './AcqOrder';
 export default {
-  path: '/acqOrder',
+	path: '/acqOrder',
 
-  async action() {
-    return <AcqOrder />;
-  }
+	async action() {
+		return <AcqOrder />;
+	}
 }

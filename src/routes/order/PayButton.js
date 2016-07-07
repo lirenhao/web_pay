@@ -44,7 +44,7 @@ var PayButton = React.createClass({
 	render: function () {
 		let payButton = "success";
 		let payClass = "";
-		let cancelClass="";
+		let cancelClass = "";
 		let disabled = false;
 		let oneButton = "";
 

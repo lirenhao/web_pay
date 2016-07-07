@@ -6,6 +6,7 @@ import React, {PropTypes} from 'react';
 import PaymentStore from '../../stores/PaymentStore'
 import Const from '../../constants/PaymentConstants.js';
 import PaymentActionCreator from '../../actions/PaymentActionCreator';
+import {Nav} from 'react-bootstrap';
 
 var OrderEventType = Const.OrderEventType;
 
@@ -38,9 +39,9 @@ var OrderSelector = React.createClass({
       </li>
     );
     return (
-      <ul className="nav nav-tabs">
+      <Nav bsStyle="tabs" justified>
         {idComponents}
-      </ul>
+      </Nav>
     )
   }
 });
