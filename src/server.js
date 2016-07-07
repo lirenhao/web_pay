@@ -46,7 +46,8 @@ app.get("*", async (req, res, next) => {
   }
 });
 var port = 3000;
+const dns = require('dns');
 
-app.listen(port, "0.0.0.0", () => {
-  console.log(`The server is running at http://0.0.0.0:${port}/`);
+app.listen(port, "localhost", () => {
+  console.log(`The server is running at http://localhost:${port}/`);
 });
