@@ -53,7 +53,7 @@ var OrderItem = React.createClass({
 						<FormControl className={s.inputRadius} name="items.price"
 												 value={this.props.price}
 												 onChange={this.props.priceChange}
-												 placeholder="单价"/>
+												 placeholder="单价(分)"/>
 						<FormControl.Feedback/>
 					</InputGroup>
 				</FormGroup>

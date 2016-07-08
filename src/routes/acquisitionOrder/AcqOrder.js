@@ -11,19 +11,19 @@ function AcqOrder(props, context) {
 	context.setTitle("创建订单");
 	var items = [
 		{
-			name: "袜子",
-			price: 2900,
+			name: "ONLY修身撞色拼接女针织裙",
+			price: 34950,
 			quantity: 2
 		},
 		{
-			name: "裤头",
-			price: 3980,
+			name: "ONLY圆点荷叶边女修身裙",
+			price: 19950,
 			quantity: 1
 		},
 		{
-			name: "卫生纸",
-			price: 2690,
-			quantity: 5
+			name: "ONLY棉宽松字母牛仔女外套",
+			price: 27450,
+			quantity: 1
 		}
 	];
 	return (
