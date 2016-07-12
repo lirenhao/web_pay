@@ -11,6 +11,15 @@ import {match} from "universal-router";
 import routes from "./routes";
 import history from './core/history';
 import {addEventListener} from './core/DOMUtils';
+import 'bootstrap/less/bootstrap.less';
+
+import jQuery from 'jquery';
+
+if(process.env.BROWSER) {
+  window.$ = jQuery;
+  window.jQuery = jQuery;
+  require("bootstrap");
+}
 
 const context = {
   insertCss: styles => styles["_insertCss"](),
