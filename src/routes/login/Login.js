@@ -48,7 +48,7 @@ class Login extends Component {
 	render() {
 		return (
 			<div className={s.myContainer}>
-				<div className={s.loginD}>
+				<form className={s.loginD}>
 					<FormGroup bsSize="lg">
 						<InputGroup>
 							<InputGroup.Addon>
@@ -86,7 +86,7 @@ class Login extends Component {
           }}
 										block>登&nbsp;&nbsp;&nbsp;&nbsp;录</Button>
 					</div>
-				</div>
+				</form>
 			</div>
 		);
 	}
