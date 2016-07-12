@@ -7,117 +7,12 @@
   margin-top: 4px;
   position: relative;
 }//单个商品栏上边距
-
-//小于992px
-@media (max-width: 992px){
-  .btnRemove{
-    position: absolute;
-    right: 15px !important;
-  }//删除按钮位置
-}
-//768px-992px之间
-@media (max-width: 992px)and(min-width: 768px) {
-  .divRemove{
-    position: absolute;
-    top: 17px;
-    right: 45px;
-  }//删除按钮的容器位置
-  .btnRemove{
-    position: absolute;
-    right: -30px !important;
-    top: -17px;
-    z-index: 100;
-  }//删除按钮位置
-  .widthP{
-    width: 100%;
-  }//input的容器
-  .col4{
-    margin: 0 !important;
-    width:33.333333%;
-    position: relative;
-  }//商品的每个栏目
-  .padding30{
-    position: relative;
-    left: -1px;
-    padding-right: 23px;
-  }//单价栏目的位置
-  .mgt{
-    padding-right: 45px;
-  }//商品栏位置
-  .navbg{
-    padding-left: 0 !important;
-  }//底部按钮位置偏移
-}
-//大于992px
-@media (min-width: 992px) {
-  .noRightBorderR{
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  }//去掉元素右侧圆角
-  .divRemove{
-    position: absolute;
-    right: 16px;
-    top: 17px;
-  }//删除按钮的容器位置
-  .btnRemove{
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    position: absolute;
-    right: 0 !important;
-    top: -17px;
-    z-index: 10;
-  }//删除按钮位置
-  .mgt{
-    padding-right: 15px;
-  }//商品栏位置
-  .col4{
-    width:33.333333%;
-    position: relative;
-  }//商品的每个栏目
-  .padding30{
-    position: relative;
-    left: -1px;
-    padding-right: 53px;
-  }//单价栏目的位置
-  .widthP{
-    width: 100%;
-  }//input的容器
-  .navbg{
-    padding-left: 0 !important;
-  }//底部按钮位置偏移
-}
-//小于992px
-@media (max-width: 992px){
-  .btnRemove{
-    border-radius: 0 4px 4px 0;
-  }//删除按钮位置
-  .col4{
-    margin-left: 15px;
-    margin-right: 50px;
-    margin-bottom: 0 !important;
-  }//商品的每个栏目
-}
-//大于768px
-@media (min-width: 768px){
-  .mgt{
-    margin-bottom: 14px !important;
-    width: 100% !important;
-    position: relative;
-  }//商品栏位置
-  .inputRadius{
-    border-radius: 0 !important;
-  }//input框去掉圆角
-  .padding30{
-    position: relative;
-    left: -1px;
-  }//单价栏目的位置
-  .top0{
-    position: relative;
-    left: 1px !important;
-  }//第一个input的容器位置微调
-}
 //小于767px
 @media (max-width: 767px){
+  .col4{
+    margin-bottom: 0 !important;
+    margin-right: 39px;
+  }//商品的每个栏目
   .divRemove{
     position: absolute;
     right: 0;
@@ -131,6 +26,7 @@
     z-index: 100;
     word-break: break-all;
     white-space: pre-wrap;
+    border-radius: 0 4px 4px 0;
   }//删除按钮位置
   .noBLR{
     border-bottom-left-radius: 0;
@@ -150,6 +46,88 @@
     position: relative;
     top: -2px;
   }//第三个input的容器位置微调
+}
+//大于768px
+@media (min-width: 768px){
+  .mgt{
+    margin-bottom: 14px !important;
+    width: 100% !important;
+    position: relative;
+  }//商品栏位置
+  .inputRadius{
+    border-radius: 0 !important;
+  }//input框去掉圆角
+  .padding{
+    position: relative;
+    left: -1px;
+  }//单价栏目的位置
+  .top0{
+    position: relative;
+    left: 1px !important;
+  }//第一个input的容器位置微调
+}
+//768px-992px之间
+@media (max-width: 992px)and(min-width: 768px) {
+  .divRemove{
+    position: absolute;
+    top: 17px;
+    right: 0;
+  }//删除按钮的容器位置
+  .btnRemove{
+    position: absolute;
+    right: 0 !important;
+    top: -17px;
+    z-index: 100;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }//删除按钮位置
+  .widthP{
+    width: 100%;
+  }//input的容器
+  .col4{
+    margin: 0 !important;
+    width:33.333333%;
+    position: relative;
+  }//商品的每个栏目
+  .padding{
+    padding-right: 53px;
+  }//单价栏目的位置
+  .mgt{
+    padding-right: 0;
+  }//商品栏位置
+}
+//大于992px
+@media (min-width: 992px) {
+  .noRightBorderR{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }//去掉元素右侧圆角
+  .divRemove{
+    position: absolute;
+    right: 1px;
+    top: 17px;
+  }//删除按钮的容器位置
+  .btnRemove{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    position: absolute;
+    right: 0 !important;
+    top: -17px;
+    z-index: 10;
+  }//删除按钮位置
+  .mgt{
+    padding-right: 0;
+  }//商品栏位置
+  .col4{
+    width:33.333333%;
+    position: relative;
+  }//商品的每个栏目
+  .padding{
+    padding-right: 53px;
+  }//单价栏目的位置
+  .widthP{
+    width: 100%;
+  }//input的容器
 }
 .btnradius {
   border-radius: 0 4px 4px 0 !important;

@@ -57,7 +57,7 @@ var OrderItem = React.createClass({
 						<FormControl.Feedback/>
 					</InputGroup>
 				</FormGroup>
-				<FormGroup className={s.col4+" "+s.padding30} controlId="productCounts"
+				<FormGroup className={s.col4+" "+s.padding} controlId="productCounts"
 									 validationState={this.getValidationQuantity()}>
 					<InputGroup className={s.top2+" "+s.widthP}>
 						<InputGroup.Addon className={s.noTLR + " " + s.inputRadius}>
