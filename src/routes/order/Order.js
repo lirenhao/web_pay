@@ -11,6 +11,7 @@ import Payment from '../../Payment';
 import history from '../../core/history';
 import s from './Order.scss';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import {Navbar} from 'react-bootstrap'
 
 function Order(props, context) {
   context.setTitle("订单");
@@ -28,8 +29,7 @@ function Order(props, context) {
         <MarketingInfo />
         <Billing />
       </div>
-      <div className="navbar navbar-default navbar-fixed-bottom">
-        <div className={"container "+s.topbottom}>
+      <Navbar className={"navbar-fixed-bottom "+s.topbottom}>
           <PayButton canCancel={props.isMerchant} onReqPay={orderId => {
         Payment.reqPayAuth(orderId);
       }} onPay={orderId => {
@@ -40,8 +40,7 @@ function Order(props, context) {
       }} onCancel={orderId => {
         Payment.cancelOrder(orderId);
       }}/>
-        </div>
-      </div>
+      </Navbar>
     </div>
 
   )

@@ -7,7 +7,7 @@ import PaymentStore from '../../stores/PaymentStore.js';
 import Const from '../../constants/PaymentConstants.js';
 import s from './AcqOrder.scss';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import {Nav, Button, ButtonGroup} from 'react-bootstrap';
+import {Nav, Button, ButtonGroup, Navbar} from 'react-bootstrap';
 
 var OrderEventType = Const.OrderEventType;
 
@@ -70,35 +70,33 @@ var OrderCreateFrom = React.createClass({
 				<div className={"row " + s.mgtb}>
 					{children}
 				</div>
-				<Nav className="navbar navbar-default navbar-fixed-bottom">
-					<div className={"container "+s.topbottom}>
-						<ButtonGroup justified>
-							<ButtonGroup>
-								<Button
-									onClick={() => this.setState({items: [...this.state.items, {name: "", price: "", quantity: ""}]})}>
-									添加</Button>
-							</ButtonGroup>
-							<ButtonGroup>
-								<Button
-									bsStyle="success"
-									className={btnRadius}
-									onClick={() => {
-                          let items = getItems();
-                          if(items.length > 0)
-                          this.props.createOrder(items)}}
-									disabled={getItems().length == 0}>
-									提交</Button>
-							</ButtonGroup>
-							<ButtonGroup className={hidden}>
-								<Button
-									bsStyle="info"
-									onClick={e => this.props.onEntryOrder()}>
-									<span className="badge">{PaymentStore.getOrderIds().length}</span>&nbsp;个待支付
-								</Button>
-							</ButtonGroup>
+				<Navbar className={"navbar-fixed-bottom "+s.topbottom}>
+					<ButtonGroup justified>
+						<ButtonGroup>
+							<Button
+								onClick={() => this.setState({items: [...this.state.items, {name: "", price: "", quantity: ""}]})}>
+								添加</Button>
 						</ButtonGroup>
-					</div>
-				</Nav>
+						<ButtonGroup>
+							<Button
+								bsStyle="success"
+								className={btnRadius}
+								onClick={() => {
+					  let items = getItems();
+					  if(items.length > 0)
+					  this.props.createOrder(items)}}
+								disabled={getItems().length == 0}>
+								提交</Button>
+						</ButtonGroup>
+						<ButtonGroup className={hidden}>
+							<Button
+								bsStyle="info"
+								onClick={e => this.props.onEntryOrder()}>
+								<span className="badge">{PaymentStore.getOrderIds().length}</span>&nbsp;个待支付
+							</Button>
+						</ButtonGroup>
+					</ButtonGroup>
+				</Navbar>
 			</div>
 		)
 	}

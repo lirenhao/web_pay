@@ -8,7 +8,7 @@ import Payment from '../../Payment/Payment';
 import history from '../../core/history';
 import s from './PayForm.scss';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-import {Table, ButtonGroup, Button} from 'react-bootstrap';
+import {Table, ButtonGroup, Button,Navbar} from 'react-bootstrap';
 
 var OrderEventType = Const.OrderEventType;
 
@@ -81,28 +81,26 @@ var PayForm = React.createClass({
 		return (
 			<div>
 				{this.getOrderInfoComponent(this.props.orderInfo)}
-				<div className="navbar navbar-default navbar-fixed-bottom">
-					<div className={"container "+s.topbottom}>
-						<ButtonGroup justified>
-							<ButtonGroup>
-								<select className={"btn btn-default "+s.selectH} ref={c => selector = c}>
-									<option value="0">成功</option>
-									<option value="1">失败</option>
-								</select>
-							</ButtonGroup>
-							<ButtonGroup>
-								<Button bsStyle="success"
-												onClick={e => this.props.onPayCompleted(selector.value)}>确定
-								</Button>
-							</ButtonGroup>
-							<ButtonGroup>
-								<Button bsStyle="danger"
-												onClick={this.props.onCancel}>取消支付
-								</Button>
-							</ButtonGroup>
+				<Navbar className={"navbar-fixed-bottom "+s.topbottom}>
+					<ButtonGroup justified>
+						<ButtonGroup>
+							<select className={"btn btn-default "+s.selectH} ref={c => selector = c}>
+								<option value="0">成功</option>
+								<option value="1">失败</option>
+							</select>
 						</ButtonGroup>
-					</div>
-				</div>
+						<ButtonGroup>
+							<Button bsStyle="success"
+											onClick={e => this.props.onPayCompleted(selector.value)}>确定
+							</Button>
+						</ButtonGroup>
+						<ButtonGroup>
+							<Button bsStyle="danger"
+											onClick={this.props.onCancel}>取消支付
+							</Button>
+						</ButtonGroup>
+					</ButtonGroup>
+				</Navbar>
 			</div>
 		);
 	}
