@@ -38,6 +38,7 @@ var Billing = React.createClass({
     if (this.state.orderInfo && this.state.marketing) {
       let totalAmt = this.state.orderInfo.items.reduce((amt, curP) => amt + curP.price * curP.quantity, 0);
       return (
+          /*
         <div className={s.mybg}>
           <p className={s.topcol}>
             <Glyphicon glyph="yen" aria-hidden="true"/>
@@ -65,6 +66,29 @@ var Billing = React.createClass({
             <p className={s.myhr}/>
           </div>
         </div>
+       */
+          <div className="panel panel-info">
+            <div className="panel-heading"><Glyphicon glyph="yen" aria-hidden="true"/>
+              &nbsp;结算</div>
+              <Table condensed>
+                <tbody>
+                <tr>
+                  <td className={s.padin}>总价</td>
+                  <td className={s.textRed+" text-right " +s.padin}><Money>{totalAmt}</Money>&nbsp; &nbsp;</td>
+                </tr>
+                <tr>
+                  <td className={s.padin}>优惠</td>
+                  <td className={s.textRed+" text-right " +s.padin}>
+                    <Money>{-this.state.marketing.amt}</Money>&nbsp; &nbsp;</td>
+                </tr>
+                <tr>
+                  <td className={s.padin}>结算</td>
+                  <td className={s.textRed+" text-right " +s.padin}>
+                    <Money>{totalAmt - this.state.marketing.amt}</Money>&nbsp; &nbsp;</td>
+                </tr>
+                </tbody>
+              </Table>
+          </div>
       );
     } else {
       return null;
