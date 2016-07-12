@@ -29,11 +29,9 @@ var MarketingInfo = React.createClass({
   render: function () {
     if (this.state.marketing) {
       return (
-        <div className={s.mybg}>
-          <p className={s.topcol}>
-            <Glyphicon glyph="tag" aria-hidden="true"> </Glyphicon>
-            &nbsp;优惠信息
-          </p>
+        <div className="panel panel-info">
+          <div className="panel-heading"><Glyphicon glyph="tag" aria-hidden="true"> </Glyphicon>
+            &nbsp;优惠信息</div>
           <Table className={s.fcolor} condensed>
             <tbody>
             <tr>
@@ -46,7 +44,6 @@ var MarketingInfo = React.createClass({
             </tr>
             </tbody>
           </Table>
-          <p className={s.myhr}/>
         </div>
       );
     } else {
