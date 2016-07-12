@@ -29,7 +29,7 @@ function Order(props, context) {
         <MarketingInfo />
         <Billing />
       </div>
-      <Navbar className={"navbar-fixed-bottom "+s.topbottom}>
+      <Navbar className={" navbar-fixed-bottom "+s.topbottom}>
           <PayButton canCancel={props.isMerchant} onReqPay={orderId => {
         Payment.reqPayAuth(orderId);
       }} onPay={orderId => {
