@@ -81,8 +81,8 @@ var PayForm = React.createClass({
 		return (
 			<div>
 				{this.getOrderInfoComponent(this.props.orderInfo)}
-				<div className="navbar-fixed-bottom container">
-					<div className={s.navbg}>
+				<div className="navbar navbar-default navbar-fixed-bottom">
+					<div className={"container "+s.topbottom}>
 						<ButtonGroup justified>
 							<ButtonGroup>
 								<select className={"btn btn-default "+s.selectH} ref={c => selector = c}>
