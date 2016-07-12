@@ -107,29 +107,6 @@ const config = {
         loader: "style!css!less"
       },
       {
-        test: /\.json$/,
-        loader: 'json-loader',
-      },
-      {
-        test: /\.txt$/,
-        loader: 'raw-loader',
-      },
-      {
-        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
-        loader: 'url-loader',
-        query: {
-          name: DEBUG ? '[path][name].[ext]?[hash]' : '[hash].[ext]',
-          limit: 10000,
-        },
-      },
-      {
-        test: /\.(eot|ttf|wav|mp3)$/,
-        loader: 'file-loader',
-        query: {
-          name: DEBUG ? '[path][name].[ext]?[hash]' : '[hash].[ext]',
-        },
-      },
-      {
         test: /\.jade$/,
         loader: 'jade-loader',
       },
