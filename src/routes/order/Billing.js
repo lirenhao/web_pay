@@ -7,8 +7,7 @@ import PaymentStore from '../../stores/PaymentStore.js';
 import Money from './Money';
 import Const from '../../constants/PaymentConstants.js';
 import {Table,Glyphicon} from 'react-bootstrap';
-import s from './Order.scss';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import './Order.scss';
 var OrderEventType = Const.OrderEventType;
 
 var Billing = React.createClass({
@@ -67,4 +66,4 @@ var Billing = React.createClass({
   }
 });
 
-export default withStyles(s)(Billing);
+export default Billing ;

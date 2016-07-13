@@ -6,8 +6,7 @@ import React from 'react';
 import PaymentStore from '../../stores/PaymentStore.js';
 import Money from './Money';
 import Const from '../../constants/PaymentConstants.js';
-import s from './Order.scss';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import './Order.scss';
 import {Table,Glyphicon} from 'react-bootstrap';
 var OrderEventType = Const.OrderEventType;
 
@@ -32,15 +31,15 @@ var MarketingInfo = React.createClass({
         <div className="panel panel-info">
           <div className="panel-heading"><Glyphicon glyph="tag" aria-hidden="true"> </Glyphicon>
             &nbsp;优惠信息</div>
-          <Table className={s.fcolor} condensed>
+          <Table className={"fcolor"} condensed>
             <tbody>
             <tr>
-              <td className={s.padin}>优惠金额</td>
-              <td className={"text-right " +s.padin}><Money>{this.state.marketing.amt}</Money>&nbsp; &nbsp;</td>
+              <td className={"padin"}>优惠金额</td>
+              <td className={"text-right " +"padin"}><Money>{this.state.marketing.amt}</Money>&nbsp; &nbsp;</td>
             </tr>
             <tr>
-              <td className={s.padin}>优惠信息</td>
-              <td className={"text-right " +s.padin}><span>{this.state.marketing.msg}</span>&nbsp; &nbsp;</td>
+              <td className={"padin"}>优惠信息</td>
+              <td className={"text-right " +"padin"}><span>{this.state.marketing.msg}</span>&nbsp; &nbsp;</td>
             </tr>
             </tbody>
           </Table>
@@ -52,4 +51,4 @@ var MarketingInfo = React.createClass({
   }
 });
 
-export default withStyles(s)(MarketingInfo);
+export default MarketingInfo;

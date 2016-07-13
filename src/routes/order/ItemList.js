@@ -5,8 +5,7 @@
 import React from 'react';
 import Product from './Item';
 import {Table} from 'react-bootstrap';
-import s from './Order.scss';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import './Order.scss';
 
 
 var ItemList = React.createClass({
@@ -17,9 +16,9 @@ var ItemList = React.createClass({
       <Table striped>
         <thead>
         <tr>
-          <th className={s.thColor}>名称</th>
-          <th className={s.thColor}>价格</th>
-          <th className={s.thColor}>数量</th>
+          <th className={"thColor"}>名称</th>
+          <th className={"thColor"}>价格</th>
+          <th className={"thColor"}>数量</th>
         </tr>
         </thead>
         <tbody>{rows}</tbody>
@@ -28,4 +27,4 @@ var ItemList = React.createClass({
   }
 });
 
-export default withStyles(s)(ItemList);
+export default ItemList;
