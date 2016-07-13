@@ -11,7 +11,7 @@ import {match} from "universal-router";
 import routes from "./routes";
 import history from './core/history';
 import {addEventListener} from './core/DOMUtils';
-import 'bootstrap/less/bootstrap.less';
+import './bootstrap.less';
 
 import jQuery from 'jquery';
 
