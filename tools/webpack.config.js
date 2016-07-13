@@ -26,7 +26,7 @@ const AUTOPREFIXER_BROWSERS = [
 ];
 const GLOBALS = {
   'process.env.NODE_ENV': DEBUG ? '"development"' : '"production"',
-  'process.env.wsUrl': '"ws://10.2.54.160:9000/ws"',
+  'process.env.wsUrl': '"ws://60.205.93.81:9000/ws"',
   __DEV__: DEBUG,
 };
 
