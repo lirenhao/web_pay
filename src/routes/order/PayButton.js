@@ -5,8 +5,7 @@ import React, {PropTypes} from 'react';
 import PaymentStore from '../../stores/PaymentStore.js';
 import Const from '../../constants/PaymentConstants.js';
 import PaymentActionCreator from '../../actions/PaymentActionCreator';
-import s from './Order.scss';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import './Order.scss';
 import {ButtonGroup, Button,} from 'react-bootstrap';
 
 var LocalStatus = Const.LocalStatus;
@@ -57,12 +56,12 @@ var PayButton = React.createClass({
 				break;
 			default:
 				payClass += "hidden ";
-				oneButton += s.payRadius;//单个按钮时，强化按钮圆角样式
+				oneButton += "payRadius";//单个按钮时，强化按钮圆角样式
 				break;
 		}
 		if (!(this.props.canCancel && PaymentStore.getCurrentOrderId() != undefined)) {
 			cancelClass += "hidden";
-			oneButton += s.payRadius;//单个按钮时，强化按钮圆角样式
+			oneButton += "payRadius";//单个按钮时，强化按钮圆角样式
 		}
 		return (
 			<ButtonGroup justified>
@@ -90,4 +89,4 @@ var PayButton = React.createClass({
 	}
 });
 
-export default withStyles(s)(PayButton);
+export default PayButton;

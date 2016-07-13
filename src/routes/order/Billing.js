@@ -7,8 +7,7 @@ import PaymentStore from '../../stores/PaymentStore.js';
 import Money from './Money';
 import Const from '../../constants/PaymentConstants.js';
 import {Table,Glyphicon} from 'react-bootstrap';
-import s from './Order.scss';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import './Order.scss';
 var OrderEventType = Const.OrderEventType;
 
 var Billing = React.createClass({
@@ -44,17 +43,17 @@ var Billing = React.createClass({
               <Table condensed>
                 <tbody>
                 <tr>
-                  <td className={s.padin}>总价</td>
-                  <td className={s.textRed+" text-right " +s.padin}><Money>{totalAmt}</Money>&nbsp; &nbsp;</td>
+                  <td className={"padin"}>总价</td>
+                  <td className={"textRed"+" text-right " +"padin"}><Money>{totalAmt}</Money>&nbsp; &nbsp;</td>
                 </tr>
                 <tr>
-                  <td className={s.padin}>优惠</td>
-                  <td className={s.textRed+" text-right " +s.padin}>
+                  <td className={"padin"}>优惠</td>
+                  <td className={"textRed"+" text-right " +"padin"}>
                     <Money>{-this.state.marketing.amt}</Money>&nbsp; &nbsp;</td>
                 </tr>
                 <tr>
-                  <td className={s.padin}>结算</td>
-                  <td className={s.textRed+" text-right " +s.padin}>
+                  <td className={"padin"}>结算</td>
+                  <td className={"textRed"+" text-right " +"padin"}>
                     <Money>{totalAmt - this.state.marketing.amt}</Money>&nbsp; &nbsp;</td>
                 </tr>
                 </tbody>
@@ -67,4 +66,4 @@ var Billing = React.createClass({
   }
 });
 
-export default withStyles(s)(Billing);
+export default Billing;

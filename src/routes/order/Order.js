@@ -9,8 +9,7 @@ import Billing from './Billing';
 import PayButton from './PayButton';
 import Payment from '../../Payment';
 import history from '../../core/history';
-import s from './Order.scss';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import './Order.scss';
 import {Navbar} from 'react-bootstrap'
 
 function Order(props, context) {
@@ -18,7 +17,7 @@ function Order(props, context) {
 
   return (
     <div>
-      <div className={s.mgtb}>
+      <div className={"mgtb"}>
         <OrderSelector onEmptyOrder={ () => {
       if(props.isMerchant)
         history.push("/acqOrder");
@@ -29,7 +28,7 @@ function Order(props, context) {
         <MarketingInfo />
         <Billing />
       </div>
-      <Navbar className={" navbar-fixed-bottom "+s.topbottom}>
+      <Navbar className={" navbar-fixed-bottom "+"topbottom"}>
           <PayButton canCancel={props.isMerchant} onReqPay={orderId => {
         Payment.reqPayAuth(orderId);
       }} onPay={orderId => {
@@ -47,4 +46,4 @@ function Order(props, context) {
 }
 Order.propTypes = {isMerchant: PropTypes.bool.isRequired};
 Order.contextTypes = {setTitle: PropTypes.func.isRequired};
-export default withStyles(s)(Order);
+export default Order;
