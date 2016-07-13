@@ -2,19 +2,19 @@
  * Created by cuitao-pc on 16/5/26.
  */
 import React, {PropTypes, Component} from "react";
-import s from './Dialog.scss';
+import './Dialog.scss';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import {Modal} from 'react-bootstrap';
 
 const Dialog = (props) => (
-  <div className={s.model}>
-    <div className={s.model_content}>
+  <div className="model">
+    <div className="model_content">
       <Modal.Header>
         <h4>{props.title}</h4>
       </Modal.Header>
       <Modal.Body><p><b className="text-danger">{props.message}</b></p></Modal.Body>
       <Modal.Footer>{props.btns.map((info, i) =>
-        <button className={s.btn} type="button" key={i} onClick={() => info.onClick()}>
+        <button className="btn" type="button" key={i} onClick={() => info.onClick()}>
           {info.name}</button>
       )}
       </Modal.Footer>
@@ -31,4 +31,4 @@ Dialog.propTypes = {
   })).isRequired
 };
 
-export default withStyles(s)(Dialog);
+export default Dialog;

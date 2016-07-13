@@ -6,8 +6,7 @@ import PaymentStore from '../../stores/PaymentStore.js';
 import Const from '../../constants/PaymentConstants.js';
 import Payment from '../../Payment/Payment';
 import history from '../../core/history';
-import s from './PayForm.scss';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import './PayForm.scss';
 import {Table, ButtonGroup, Button,Navbar} from 'react-bootstrap';
 
 var OrderEventType = Const.OrderEventType;
@@ -43,9 +42,9 @@ var PayForm = React.createClass({
 	},
 	getOrderInfoComponent: function (orderInfo) {
 		return (
-			<div className={s.mgtb}>
-				<div className={s.mgb}>
-					<span className={s.mgr}><b>订单号:</b>{orderInfo.orderId}</span>
+			<div className={"mgtb"}>
+				<div className={"mgb"}>
+					<span className={"mgr"}><b>订单号:</b>{orderInfo.orderId}</span>
 					<span><b>流水号:</b>{orderInfo.orderAmt}</span>
 				</div>
 				<div className="panel panel-info">
@@ -59,9 +58,9 @@ var PayForm = React.createClass({
 			<Table striped>
 				<thead>
 				<tr className="bg-info ">
-					<th className={s.thColor}>商品名称</th>
-					<th className={s.thColor}>单价</th>
-					<th className={s.thColor}>数量</th>
+					<th className={"thColor"}>商品名称</th>
+					<th className={"thColor"}>单价</th>
+					<th className={"thColor"}>数量</th>
 				</tr>
 				</thead>
 				<tbody>
@@ -81,10 +80,10 @@ var PayForm = React.createClass({
 		return (
 			<div>
 				{this.getOrderInfoComponent(this.props.orderInfo)}
-				<Navbar className={" navbar-fixed-bottom "+s.topbottom}>
+				<Navbar className={" navbar-fixed-bottom "+"topbottom"}>
 					<ButtonGroup justified>
 						<ButtonGroup>
-							<select className={"btn btn-default "+s.selectH} ref={c => selector = c}>
+							<select className={"btn btn-default "+"selectH"} ref={c => selector = c}>
 								<option value="0">成功</option>
 								<option value="1">失败</option>
 							</select>
@@ -106,4 +105,4 @@ var PayForm = React.createClass({
 	}
 });
 
-export default withStyles(s)(PayForm);
+export default PayForm;

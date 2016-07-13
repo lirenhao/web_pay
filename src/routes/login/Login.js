@@ -6,8 +6,7 @@ import history from '../../core/history';
 import Payment from '../../Payment/Payment';
 import Const from '../../constants/PaymentConstants';
 import {FormGroup, InputGroup, Glyphicon, Button, ButtonGroup} from 'react-bootstrap';
-import s from './Login.scss';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import './Login.scss';
 
 const TerminalType = Const.TerminalType;
 
@@ -47,8 +46,8 @@ class Login extends Component {
 
 	render() {
 		return (
-			<div className={s.myContainer}>
-				<form className={s.loginD}>
+			<div className={"myContainer"}>
+				<form className={"loginD"}>
 					<FormGroup bsSize="lg">
 						<InputGroup>
 							<InputGroup.Addon>
@@ -62,7 +61,7 @@ class Login extends Component {
 								placeholder="请输入用户名"
 								ref={c => this.usernameInput = c}/>
 						</InputGroup>
-						<div className={s.btn}>
+						<div className={"btn"}>
 							<ButtonGroup aria-label="登录类型" data-toggle="buttons" justified>
 								<ButtonGroup>
 									<Button active>
@@ -78,7 +77,7 @@ class Login extends Component {
 							</ButtonGroup>
 						</div>
 					</FormGroup>
-					<div className={s.btn}>
+					<div className={"btn"}>
 						<Button bsStyle="info" onClick={e => {
           if(this.merRadio.checked) history.push("/acqOrder"); else history.push("/acqOrderId");
           Payment.setUserProfile({id: this.usernameInput.value, terminalType: this.merRadio.checked ? TerminalType.MERCHANT : TerminalType.USER});
@@ -91,4 +90,4 @@ class Login extends Component {
 		);
 	}
 }
-export default withStyles(s)(Login);
+export default Login;

@@ -5,8 +5,7 @@ import React, {PropTypes} from 'react';
 import OrderItem from './OrderItem';
 import PaymentStore from '../../stores/PaymentStore.js';
 import Const from '../../constants/PaymentConstants.js';
-import s from './AcqOrder.scss';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import './AcqOrder.scss';
 import {Nav, Button, ButtonGroup, Navbar} from 'react-bootstrap';
 
 var OrderEventType = Const.OrderEventType;
@@ -63,14 +62,14 @@ var OrderCreateFrom = React.createClass({
 		let hidden = "";
 		hidden += PaymentStore.getOrderIds().length != 0 ? "" : "hidden";
 		let btnRadius = "";
-		btnRadius += PaymentStore.getOrderIds().length != 0 ? "" : s.btnradius;
+		btnRadius += PaymentStore.getOrderIds().length != 0 ? "" : "btnradius";
 
 		return (
 			<div>
-				<div className={s.mgtb}>
+				<div className={"mgtb"}>
 					{children}
 				</div>
-				<Navbar className={"navbar-fixed-bottom "+s.topbottom}>
+				<Navbar className={"navbar-fixed-bottom "+"topbottom"}>
 					<ButtonGroup justified>
 						<ButtonGroup>
 							<Button
@@ -102,4 +101,4 @@ var OrderCreateFrom = React.createClass({
 	}
 });
 
-export default withStyles(s)(OrderCreateFrom);
+export default OrderCreateFrom;
